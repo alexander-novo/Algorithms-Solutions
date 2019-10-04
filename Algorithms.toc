@@ -1,0 +1,7 @@
+\babel@toc {USenglish}{}
+\contentsline {chapter}{Introduction}{ii}{chapter*.2}% 
+\contentsline {section}{Notation}{ii}{section*.3}% 
+\contentsline {chapter}{Solutions}{iii}{chapter*.4}% 
+\contentsline {section}{\numberline {1}The Role of Algorithms in Computing}{iii}{section.0.1}% 
+\contentsline {subsection}{\numberline {1.1}Algorithms}{iii}{subsection.0.1.1}% 
+\contentsline {subsection}{\numberline {1.2}Algorithms as a Technology}{iv}{subsection.0.1.2}% 

@@ -1,0 +1,33 @@
+%!TEX root = ../../Algorithms.tex
+\documentclass[Chapter01]{subfiles}
+
+\begin{document}
+	\subsection{Algorithms as a Technology}
+
+	\begin{enumerate}[leftmargin=\labelsep]
+		% 1.2-1
+		\item Give an example of an application that requires algorithmic content at the application level, and discuss the function of the algorithms involved.
+		\begin{answer}
+			Steam, a digital retailer of video games and other software, needs algorithmic content. The platform contains tens of thousands of games and software, and if they left it up to the customer to find the games that they want, many games would go unnoticed. This means the customer doesn't get to play game they might want to play, and Steam doesn't get to see the profit from those users buying those games. So instead, Steam has an algorithm which takes as input that customer's previous purchases and playtime and shows them games that they may be interested in.
+		\end{answer}
+
+		% 1.2-2
+		\item Suppose we are comparing implementations of insertion sort and merge sort on the same machine. For inputs of size $n$, insertion sort runs in $8n^2$ steps, while merge sort runs in $64n \lg(n)$ steps. For which values of $n$ does insertion sort beat merge sort?
+		\begin{answer}
+			Note that $n$ is positive. We wish to have
+			\begin{align*}
+				8n^2 < 64n \lg(n) \tag*{$\impliedby$}\\
+				n < 8 \lg(n) \tag*{$\impliedby$}\\
+				\frac{n}{\lg(n)} < 8.
+			\end{align*}
+			This can't be solved algebraically, so we analyze the graph and approximate solutions
+		\end{answer}
+
+		% 1.2-3
+		\item What is the smallest value of $n$ such that an algorithm whose running time is $100n^2$ runs faster than an algorithm whose running time is $2^n$ on the same machine?
+		\begin{answer}
+			
+		\end{answer}
+	\end{enumerate}
+
+\end{document}

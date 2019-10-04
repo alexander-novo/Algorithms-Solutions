@@ -1,0 +1,77 @@
+\documentclass{report}
+
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+%% remove ligatures (e.g. ``ff") to allow text copying from PDF
+\usepackage{microtype}
+\DisableLigatures{encoding = *, family = * }
+\usepackage{fancyhdr}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[USenglish]{babel}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{halloweenmath}
+\usepackage{multicol}
+\usepackage{physics}
+\usepackage{tikz}
+\usepackage{forest}
+\usepackage{cancel}
+\usepackage{subfiles}
+\usepackage[linesnumbered,lined,boxed]{algorithm2e}
+
+% Must be loaded last
+\usepackage{cleveref}
+
+\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{green}{#1}}
+\SetCommentSty{mycommfont}
+
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black
+}
+
+% Notation Stuff
+\newcommand*{\nats}{\mathbb{N}}
+\newcommand*{\ints}{\mathbb{Z}}
+\newcommand*{\rats}{\mathbb{Q}}
+\newcommand*{\reals}{\mathbb{R}}
+\newcommand*{\bigO}{\mathcal{O}}
+\newcommand*{\prob}{\mathcal{P}}
+\newcommand*{\expect}{\mathbb{E}}
+
+% Set proof-ending symbol to be a witch
+\renewcommand{\qedsymbol}{$\mathwitch*$}
+% Remove chapter numbers
+\renewcommand{\thesection}{\arabic{section}}
+
+\setenumerate[1]{label=\textbf{\thesubsection-\arabic*}}
+
+\theoremstyle{definition}
+\newtheorem*{answer}{Answer}
+
+\setlength{\parindent}{0cm}
+\setlength{\headheight}{18pt}
+
+\pagestyle{fancy}
+\lhead{\large Introduction to Algorithms}
+\rhead{\large Alexander Novotny}
+
+\title{Introduction to Algorithms: Third Edition\\ \large \textit{Solutions}}
+\author{Alexander Novotny}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\pagenumbering{roman}
+
+\subfile{Introduction/Introduction}
+
+\subfile{Solutions/Solutions}
+
+\end{document}
