@@ -1,0 +1,31 @@
+%!TEX root = ../../Algorithms.tex
+\documentclass[Chapter01]{subfiles}
+
+\begin{document}
+	\subsection*{Problems}
+	\addcontentsline{toc}{subsection}{Problems}
+
+	\begin{enumerate}[leftmargin=\labelsep,label={\textbf{\thesection-\arabic*}}]
+		% 1-1
+		\item \textbf{\textit{Comparison of running times.}} For each function $f(n)$ and time $t$ in the following table, determine the largest size $n$ of a problem that can be solved in time $t$, assuming that the algorithms to solve the problem takes $f(n)$ microseconds.
+		\begin{answer}
+			\begin{table}[ht]
+				\centering
+				\def\arraystretch{1.5}
+				\begin{tabular}{c|c|c|c|c|c|c|c|}
+					& \shortstack{1\\second} & \shortstack{1\\minute} & \shortstack{1\\hour} & \shortstack{1\\day} & \shortstack{1\ month} & \shortstack{1\\year} & \shortstack{1\\century}\\\hline
+					$\lg(n)$   & \num{9.9e301029} & \num{5.5e18061799} & \dots        & \dots        & \dots        & \dots        & \dots        \\\hline
+					$\sqrt{n}$ & \num{1.0e12}     & \num{3.6e15}       & \num{1.3e19} & \num{7.5e21} & \num{6.7e24} & \num{9.9e26} & \num{9.9e30} \\\hline
+					$n$        & \num{1.0e6}      & \num{6.0e7}        & \num{3.6e9}  & \num{8.6e10} & \num{2.6e12} & \num{3.2e13} & \num{3.2e15} \\\hline
+					$n\lg(n)$  & \num{6.3e4}      & \num{2.8e6}        & \num{1.3e8}  & \num{2.8e9}  & \num{7.2e10} & \num{8.0e11} & \num{6.7e13} \\\hline
+					$n^2$      & \num{1.0e3}      & \num{7.7e3}        & \num{6.0e4}  & \num{3.0e5}  & \num{1.6e6}  & \num{5.6e6}  & \num{5.6e7}  \\\hline
+					$n^3$      & \num{1.0e2}      & \num{3.9e2}        & \num{1.5e3}  & \num{4.4e3}  & \num{1.3e4}  & \num{3.1e4}  & \num{1.5e5}  \\\hline
+					$2^n$      & \num{1.9e1}      & \num{2.5e1}        & \num{3.1e1}  & \num{3.6e1}  & \num{4.1e1}  & \num{4.4e1}  & \num{5.1e1}  \\\hline
+					$n!$       & 9                & \num{1.1e1}        & \num{1.2e1}  & \num{1.3e1}  & \num{1.5e1}  & \num{1.6e1}  & \num{1.6e1}  \\\hline
+				\end{tabular}
+				\caption{The rest of the first row has been left out, as the numbers are too large to consider}
+			\end{table}
+		\end{answer}
+	\end{enumerate}
+
+\end{document}

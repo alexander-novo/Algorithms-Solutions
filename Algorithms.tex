@@ -1,6 +1,6 @@
 \documentclass{report}
 
-\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[letterpaper,margin=.9in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
 %% remove ligatures (e.g. ``ff") to allow text copying from PDF
 \usepackage{microtype}
@@ -14,14 +14,21 @@
 \usepackage{halloweenmath}
 \usepackage{multicol}
 \usepackage{physics}
-\usepackage{tikz}
-\usepackage{forest}
+\usepackage{tikz,pgfplots,forest}
 \usepackage{cancel}
 \usepackage{subfiles}
+\usepackage{array,float}
+\usepackage[group-separator={,}]{siunitx}
 \usepackage[linesnumbered,lined,boxed]{algorithm2e}
 
 % Must be loaded last
 \usepackage{cleveref}
+
+\pgfplotsset{compat=1.16}
+\usetikzlibrary{external}
+
+\tikzexternalize
+\tikzsetexternalprefix{Figures/}
 
 \newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{green}{#1}}
 \SetCommentSty{mycommfont}

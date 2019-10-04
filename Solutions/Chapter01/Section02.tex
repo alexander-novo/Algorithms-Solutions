@@ -20,13 +20,70 @@
 				n < 8 \lg(n) \tag*{$\impliedby$}\\
 				\frac{n}{\lg(n)} < 8.
 			\end{align*}
-			This can't be solved algebraically, so we analyze the graph and approximate solutions
+			This can't be solved algebraically, so we analyze the graph and approximate solutions:
+			\begin{figure}[h]
+				\centering
+				\tikzsetnextfilename{Chapter01-insertion-vs-merge-graph}
+				\begin{tikzpicture}
+					\begin{axis}[
+						scale only axis,
+						width=.9\textwidth,
+						height=.5\textwidth,
+						xlabel={$n$},
+						axis lines=center,
+						legend style={at={(.98,.85)}},
+						xmin=0,
+						xmax=44,
+						ymin=0,
+						ymax=8.5,
+						samples=440
+					]
+						\addplot+[mark=none, domain=1:44]{x*ln(2)/ln(x)};
+						\addlegendentry{$\frac{n}{\lg(n)}$};
+						\addplot+[mark=none, domain=0:44]{8};
+					\end{axis}
+				\end{tikzpicture}
+			\end{figure}
+
+			Then, we can verify:
+			\begin{align*}
+				\lim_{x \to 1^+} \frac{x}{\lg(x)} &= \infty,\\
+				\frac{2}{\lg(2)} &= 2,\\
+				\frac{43}{\lg(43)} &\approx 7.92,\\
+				\frac{44}{\lg(44)} &\approx 8.06.
+			\end{align*}
+			As well, we can check the in-between values by analyzing critical points. We have
+			\begin{align*}
+				\dv{}{x} \qty[\frac{x}{\lg(x)}] &= \ln(2)\frac{\ln(x) - 1}{\ln^2(x)},
+			\end{align*}
+			which vanishes or is undefined only when $x = 1,e$ and $\frac{e}{\lg(e)} \approx 1.88 < 8$. Therefore insertion sort beats merge sort for all $2 \leq n \leq 43$.
 		\end{answer}
 
 		% 1.2-3
 		\item What is the smallest value of $n$ such that an algorithm whose running time is $100n^2$ runs faster than an algorithm whose running time is $2^n$ on the same machine?
 		\begin{answer}
-			
+			We wish to find the first value of $n$ such that $100n^2 < 2^n$. Similarly to above, this is unsolvable algebraically, so we again refer to a graph:\\
+
+			\begin{figure}[h]
+				\centering
+				\tikzsetnextfilename{Chapter01-poly-vs-exp}
+				\begin{tikzpicture}
+					\begin{axis}[
+						scale only axis,
+						width=.9\textwidth,
+						height=.5\textwidth,
+						xlabel={$n$},
+						axis lines=center,
+						domain=0:15,
+						samples=440
+					]
+						\addplot+[mark=none]{100*x^2 - 2^x};
+						\addlegendentry{$100n^2 - 2^n$};
+					\end{axis}
+				\end{tikzpicture}
+			\end{figure}
+
+			We can then verify that $100(14)^2 = \num{19600} > \num{16384} = 2^{14}$ and $100(15)^2 = \num{22500} < \num{32768} = 2^{15}$.
 		\end{answer}
 	\end{enumerate}
 
