@@ -17,7 +17,9 @@
 \usepackage{tikz,pgfplots,forest}
 \usepackage{cancel}
 \usepackage{subfiles}
-\usepackage{array,float}
+\usepackage{array}
+\usepackage{caption,subcaption}
+\usepackage{floatrow}
 \usepackage[group-separator={,}]{siunitx}
 \usepackage[linesnumbered,lined,boxed]{algorithm2e}
 
@@ -26,12 +28,11 @@
 
 \pgfplotsset{compat=1.16}
 \usetikzlibrary{external}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{bending}
 
 \tikzexternalize
 \tikzsetexternalprefix{Figures/}
-
-\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{green}{#1}}
-\SetCommentSty{mycommfont}
 
 \hypersetup{
 	colorlinks,
