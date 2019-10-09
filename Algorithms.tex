@@ -1,3 +1,4 @@
+% !TEX options=--shell-escape
 \documentclass{report}
 
 \usepackage[letterpaper,margin=.9in]{geometry}
@@ -18,8 +19,7 @@
 \usepackage{cancel}
 \usepackage{subfiles}
 \usepackage{array}
-\usepackage{caption,subcaption}
-\usepackage{floatrow}
+\usepackage{caption,subcaption,floatrow}
 \usepackage[group-separator={,}]{siunitx}
 \usepackage[linesnumbered,lined,boxed]{algorithm2e}
 
@@ -27,9 +27,7 @@
 \usepackage{cleveref}
 
 \pgfplotsset{compat=1.16}
-\usetikzlibrary{external}
-\usetikzlibrary{arrows.meta}
-\usetikzlibrary{bending}
+\usetikzlibrary{external, arrows.meta, bending, chains}
 
 \tikzexternalize
 \tikzsetexternalprefix{Figures/}
@@ -60,6 +58,8 @@
 
 \theoremstyle{definition}
 \newtheorem*{answer}{Answer}
+
+\DontPrintSemicolon
 
 \setlength{\parindent}{0cm}
 \setlength{\headheight}{18pt}

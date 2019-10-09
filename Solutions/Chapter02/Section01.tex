@@ -2,10 +2,11 @@
 \documentclass[Chapter02]{subfiles}
 
 \tikzset{
+	node distance = 0pt,
 	sort node/.style = {
 		rectangle,
 		draw = black,
-		anchor = north west
+		on chain
 	},
 	curs node/.style = {
 		sort node,
@@ -15,8 +16,11 @@
 	comp node/.style = {
 		sort node,
 		fill = gray
-	}
+	},
+	every label/.style = {font=\tiny}
 }
+
+
 
 \begin{document}
 	\subsection{Insertion Sort}
@@ -24,107 +28,112 @@
 	\begin{enumerate}[leftmargin=\labelsep]
 		% 2.1-1
 		\item Using Figure 2.2 as a model, illustrate the operation of \textsc{Insertion-Sort} on the array $A = \langle 31, 41, 59, 26, 41, 58 \rangle$.
-		\begin{figure}[ht]
-			\floatsetup{valign=t, heightadjust=object, capposition=top}
+		\begin{figure}[H]
+			\floatsetup{valign=t, heightadjust=object, style=plaintop}
 			\begin{subfloatrow}[3]
 				\centering
 				\floatbox{figure}{\caption{}}{
-					\tikzsetnextfilename{Chapter02-insertion-sort-01}
+					\tikzsetnextfilename{Chapter02/insertion-sort-01}
 					\scalebox{1.5}{
-						\begin{tikzpicture}
-							\node at (0,0)          [comp node, label={\tiny 1}] (a) {5};
-							\node at (a.north east) [curs node, label={\tiny 2}] (b) {2};
-							\node at (b.north east) [sort node, label={\tiny 3}] (c) {4};
-							\node at (c.north east) [sort node, label={\tiny 4}] (d) {6};
-							\node at (d.north east) [sort node, label={\tiny 5}] (e) {1};
-							\node at (e.north east) [sort node, label={\tiny 6}] (f) {3};
+						\begin{tikzpicture}[start chain = A going right]
+							\node [comp node, label=1] {5};
+							\node [curs node, label=2] {2};
+							\node [sort node, label=3] {4};
+							\node [sort node, label=4] {6};
+							\node [sort node, label=5] {1};
+							\node [sort node, label=6] {3};
 
-							\draw [-{Stealth[length=1mm]}, gray] (a.290) to[out=270, in=270, looseness=2] (b.250);
-							\draw [-{Stealth[length=1mm]}]       (b.300) to[out=270, in=270, looseness=2] (a.240);
+							\draw [-{Stealth[length=1mm]}, gray] (A-1.290) to[out=270, in=270, looseness=2] (A-2.250);
+							\draw [-{Stealth[length=1mm]}]       (A-2.300) to[out=270, in=270, looseness=2] (A-1.240);
 						\end{tikzpicture}
 					}
 				}
+				\hfill
 				\floatbox{figure}{\caption{}}{
-					\tikzsetnextfilename{Chapter02-insertion-sort-02}
+					\tikzsetnextfilename{Chapter02/insertion-sort-02}
 					\scalebox{1.5}{
-						\begin{tikzpicture}
-							\node at (0,0)          [comp node, label={\tiny 1}] (a) {2};
-							\node at (a.north east) [comp node, label={\tiny 2}] (b) {5};
-							\node at (b.north east) [curs node, label={\tiny 3}] (c) {4};
-							\node at (c.north east) [sort node, label={\tiny 4}] (d) {6};
-							\node at (d.north east) [sort node, label={\tiny 5}] (e) {1};
-							\node at (e.north east) [sort node, label={\tiny 6}] (f) {3};
+						\begin{tikzpicture}[start chain = A going right]
+							\node[comp node, label=1] {2};
+							\node[comp node, label=2] {5};
+							\node[curs node, label=3] {4};
+							\node[sort node, label=4] {6};
+							\node[sort node, label=5] {1};
+							\node[sort node, label=6] {3};
 
-							\draw [-{Stealth[length=1mm]}, gray] (b.290) to[out=270, in=270, looseness=2] (c.250);
-							\draw [-{Stealth[length=1mm]}]       (c.300) to[out=270, in=270, looseness=2] (b.240);
+							\draw [-{Stealth[length=1mm]}, gray] (A-2.290) to[out=270, in=270, looseness=2] (A-3.250);
+							\draw [-{Stealth[length=1mm]}]       (A-3.300) to[out=270, in=270, looseness=2] (A-2.240);
 						\end{tikzpicture}
 					}
 				}
+				\hfill
 				\floatbox{figure}{\caption{}}{
-					\tikzsetnextfilename{Chapter02-insertion-sort-03}
+					\tikzsetnextfilename{Chapter02/insertion-sort-03}
 					\scalebox{1.5}{
-						\begin{tikzpicture}
-							\node at (0,0)          [sort node, label={\tiny 1}] (a) {2};
-							\node at (a.north east) [sort node, label={\tiny 2}] (b) {4};
-							\node at (b.north east) [comp node, label={\tiny 3}] (c) {5};
-							\node at (c.north east) [curs node, label={\tiny 4}] (d) {6};
-							\node at (d.north east) [sort node, label={\tiny 5}] (e) {1};
-							\node at (e.north east) [sort node, label={\tiny 6}] (f) {3};
+						\begin{tikzpicture}[start chain = A going right]
+							\node[sort node, label=1] {2};
+							\node[sort node, label=2] {4};
+							\node[comp node, label=3] {5};
+							\node[curs node, label=4] {6};
+							\node[sort node, label=5] {1};
+							\node[sort node, label=6] {3};
 
-							\draw [-{Stealth[length=1mm]}] (d.300) to[out=270, in=270, looseness=4] (d.240);
+							\draw [-{Stealth[length=1mm]}] (A-4.300) to[out=270, in=270, looseness=4] (A-4.240);
 						\end{tikzpicture}
 					}
 				}
 			\end{subfloatrow}
+
 			\begin{subfloatrow}[3]
 				\centering
 				\floatbox{figure}{\caption{}}{
-					\tikzsetnextfilename{Chapter02-insertion-sort-04}
+					\tikzsetnextfilename{Chapter02/insertion-sort-04}
 					\scalebox{1.5}{
-						\begin{tikzpicture}
-							\node at (0,0)          [comp node, label={\tiny 1}] (a) {2};
-							\node at (a.north east) [comp node, label={\tiny 2}] (b) {4};
-							\node at (b.north east) [comp node, label={\tiny 3}] (c) {5};
-							\node at (c.north east) [comp node, label={\tiny 4}] (d) {6};
-							\node at (d.north east) [curs node, label={\tiny 5}] (e) {1};
-							\node at (e.north east) [sort node, label={\tiny 6}] (f) {3};
+						\begin{tikzpicture}[start chain = A going right]
+							\node [comp node, label=1] {2};
+							\node [comp node, label=2] {4};
+							\node [comp node, label=3] {5};
+							\node [comp node, label=4] {6};
+							\node [curs node, label=5] {1};
+							\node [sort node, label=6] {3};
 
-							\draw [-{Stealth[length=1mm]}, gray] (a.290) to[out=270, in=270, looseness=2] (b.250);
-							\draw [-{Stealth[length=1mm]}, gray] (b.290) to[out=270, in=270, looseness=2] (c.250);
-							\draw [-{Stealth[length=1mm]}, gray] (c.290) to[out=270, in=270, looseness=2] (d.250);
-							\draw [-{Stealth[length=1mm]}, gray] (d.290) to[out=270, in=270, looseness=2] (e.250);
-							\draw [-{Stealth[length=1mm]}, rounded corners=.3cm]   (e.300) -- +(0,-.4) -| (a.240);
+							\draw [-{Stealth[length=1mm]}, gray] (A-1.290) to[out=270, in=270, looseness=2] (A-2.250);
+							\draw [-{Stealth[length=1mm]}, gray] (A-2.290) to[out=270, in=270, looseness=2] (A-3.250);
+							\draw [-{Stealth[length=1mm]}, gray] (A-3.290) to[out=270, in=270, looseness=2] (A-4.250);
+							\draw [-{Stealth[length=1mm]}, gray] (A-4.290) to[out=270, in=270, looseness=2] (A-5.250);
+							\draw [-{Stealth[length=1mm]}, rounded corners=.3cm]   (A-5.300) -- +(0,-.4) -| (A-1.240);
 						\end{tikzpicture}
 					}
 				}
+				\hfill
 				\floatbox{figure}{\caption{}}{
-					\tikzsetnextfilename{Chapter02-insertion-sort-05}
+					\tikzsetnextfilename{Chapter02/insertion-sort-05}
 					\scalebox{1.5}{
-						\begin{tikzpicture}
-							\node at (0,0)          [sort node, label={\tiny 1}] (a) {1};
-							\node at (a.north east) [comp node, label={\tiny 2}] (b) {2};
-							\node at (b.north east) [comp node, label={\tiny 3}] (c) {4};
-							\node at (c.north east) [comp node, label={\tiny 4}] (d) {5};
-							\node at (d.north east) [comp node, label={\tiny 5}] (e) {6};
-							\node at (e.north east) [curs node, label={\tiny 6}] (f) {3};
+						\begin{tikzpicture}[start chain = A going right]
+							\node [sort node, label=1] {1};
+							\node [comp node, label=2] {2};
+							\node [comp node, label=3] {4};
+							\node [comp node, label=4] {5};
+							\node [comp node, label=5] {6};
+							\node [curs node, label=6] {3};
 
-							\draw [-{Stealth[length=1mm]}, gray] (c.290) to[out=270, in=270, looseness=2] (d.250);
-							\draw [-{Stealth[length=1mm]}, gray] (d.290) to[out=270, in=270, looseness=2] (e.250);
-							\draw [-{Stealth[length=1mm]}, gray] (e.290) to[out=270, in=270, looseness=2] (f.250);
-							\draw [-{Stealth[length=1mm]}, rounded corners=.3cm]   (f.300) -- +(0,-.4) -| (c.240);
+							\draw [-{Stealth[length=1mm]}, gray] (A-3.290) to[out=270, in=270, looseness=2] (A-4.250);
+							\draw [-{Stealth[length=1mm]}, gray] (A-4.290) to[out=270, in=270, looseness=2] (A-5.250);
+							\draw [-{Stealth[length=1mm]}, gray] (A-5.290) to[out=270, in=270, looseness=2] (A-6.250);
+							\draw [-{Stealth[length=1mm]}, rounded corners=.3cm]   (A-6.300) -- +(0,-.4) -| (A-3.240);
 						\end{tikzpicture}
 					}
 				}
+				\hfill
 				\floatbox{figure}{\caption{}}{
-					\tikzsetnextfilename{Chapter02-insertion-sort-06}
+					\tikzsetnextfilename{Chapter02/insertion-sort-06}
 					\scalebox{1.5}{
-						\begin{tikzpicture}
-							\node at (0,0)          [sort node, label={\tiny 1}] (a) {1};
-							\node at (a.north east) [sort node, label={\tiny 2}] (b) {2};
-							\node at (b.north east) [sort node, label={\tiny 3}] (c) {3};
-							\node at (c.north east) [sort node, label={\tiny 4}] (d) {4};
-							\node at (d.north east) [sort node, label={\tiny 5}] (e) {5};
-							\node at (e.north east) [sort node, label={\tiny 6}] (f) {6};
+						\begin{tikzpicture}[start chain = A going right]
+							\node [sort node, label=1] {1};
+							\node [sort node, label=2] {2};
+							\node [sort node, label=3] {3};
+							\node [sort node, label=4] {4};
+							\node [sort node, label=5] {5};
+							\node [sort node, label=6] {6};
 						\end{tikzpicture}
 					}
 				}
@@ -132,57 +141,107 @@
 		\end{figure}
 		\begin{answer}
 			\hfill\\
-			\begin{figure}[ht]
+			\begin{figure}[H]
 				\floatsetup{valign=t, heightadjust=object, style=plaintop}
 				\begin{subfloatrow}[3]
 					\centering
 					\floatbox{figure}{\caption{}}{
-						\tikzsetnextfilename{Chapter02-insertion-sort-answer-01}
+						\tikzsetnextfilename{Chapter02/insertion-sort-answer-01}
 						\scalebox{1.5}{
-							\begin{tikzpicture}
-								\node at (0,0)          [comp node, label={\tiny 1}] (a) {31};
-								\node at (a.north east) [curs node, label={\tiny 2}] (b) {41};
-								\node at (b.north east) [sort node, label={\tiny 3}] (c) {59};
-								\node at (c.north east) [sort node, label={\tiny 4}] (d) {26};
-								\node at (d.north east) [sort node, label={\tiny 5}] (e) {41};
-								\node at (e.north east) [sort node, label={\tiny 6}] (f) {58};
+							\begin{tikzpicture}[start chain = A going right]
+								\node[comp node, label=1] {31};
+								\node[curs node, label=2] {41};
+								\node[sort node, label=3] {59};
+								\node[sort node, label=4] {26};
+								\node[sort node, label=5] {41};
+								\node[sort node, label=6] {58};
 
-								\draw [-{Stealth[length=1mm]}] (b.300) to[out=270, in=270, looseness=4] (b.240);
+								\draw [-{Stealth[length=1mm]}] (A-2.300) to[out=270, in=270, looseness=4] (A-2.240);
 							\end{tikzpicture}
 						}
 					}
 
 					\floatbox{figure}{\caption{}}{
-						\tikzsetnextfilename{Chapter02-insertion-sort-answer-02}
+						\tikzsetnextfilename{Chapter02/insertion-sort-answer-02}
 						\scalebox{1.5}{
-							\begin{tikzpicture}
-								\node at (0,0)          [sort node, label={\tiny 1}] (a) {31};
-								\node at (a.north east) [comp node, label={\tiny 2}] (b) {41};
-								\node at (b.north east) [curs node, label={\tiny 3}] (c) {59};
-								\node at (c.north east) [sort node, label={\tiny 4}] (d) {26};
-								\node at (d.north east) [sort node, label={\tiny 5}] (e) {41};
-								\node at (e.north east) [sort node, label={\tiny 6}] (f) {58};
+							\begin{tikzpicture}[start chain = A going right]
+								\node[sort node, label=1] {31};
+								\node[comp node, label=2] {41};
+								\node[curs node, label=3] {59};
+								\node[sort node, label=4] {26};
+								\node[sort node, label=5] {41};
+								\node[sort node, label=6] {58};
 
-								\draw [-{Stealth[length=1mm]}] (c.300) to[out=270, in=270, looseness=4] (c.240);
+								\draw [-{Stealth[length=1mm]}] (A-3.300) to[out=270, in=270, looseness=4] (A-3.240);
 							\end{tikzpicture}
 						}
 					}
 
 					\floatbox{figure}{\caption{}}{
-						\tikzsetnextfilename{Chapter02-insertion-sort-answer-03}
+						\tikzsetnextfilename{Chapter02/insertion-sort-answer-03}
 						\scalebox{1.5}{
-							\begin{tikzpicture}
-								\node at (0,0)          [comp node, label={\tiny 1}] (a) {31};
-								\node at (a.north east) [comp node, label={\tiny 2}] (b) {41};
-								\node at (b.north east) [comp node, label={\tiny 3}] (c) {59};
-								\node at (c.north east) [curs node, label={\tiny 4}] (d) {26};
-								\node at (d.north east) [sort node, label={\tiny 5}] (e) {41};
-								\node at (e.north east) [sort node, label={\tiny 6}] (f) {58};
+							\begin{tikzpicture}[start chain = A going right]
+								\node[comp node, label=1] {31};
+								\node[comp node, label=2] {41};
+								\node[comp node, label=3] {59};
+								\node[curs node, label=4] {26};
+								\node[sort node, label=5] {41};
+								\node[sort node, label=6] {58};
 
-								\draw [-{Stealth[length=1mm]}, gray] (a.290) to[out=270, in=270, looseness=2] (b.250);
-								\draw [-{Stealth[length=1mm]}, gray] (b.290) to[out=270, in=270, looseness=2] (c.250);
-								\draw [-{Stealth[length=1mm]}, gray] (c.290) to[out=270, in=270, looseness=2] (d.250);
-								\draw [-{Stealth[length=1mm]}, rounded corners=.3cm]   (d.300) -- +(0,-.4) -| (a.240);
+								\draw [-{Stealth[length=1mm]}, gray] (A-1.290) to[out=270, in=270, looseness=2] (A-2.250);
+								\draw [-{Stealth[length=1mm]}, gray] (A-2.290) to[out=270, in=270, looseness=2] (A-3.250);
+								\draw [-{Stealth[length=1mm]}, gray] (A-3.290) to[out=270, in=270, looseness=2] (A-4.250);
+								\draw [-{Stealth[length=1mm]}, rounded corners=.3cm]   (A-4.300) -- +(0,-.4) -| (A-1.240);
+							\end{tikzpicture}
+						}
+					}
+				\end{subfloatrow}
+
+				\begin{subfloatrow}[3]
+					\floatbox{figure}{\caption{}}{
+						\tikzsetnextfilename{Chapter02/insertion-sort-answer-04}
+						\scalebox{1.5}{
+							\begin{tikzpicture}[start chain = A going right]
+								\node[sort node, label=1] {26};
+								\node[sort node, label=2] {31};
+								\node[comp node, label=3] {41};
+								\node[comp node, label=4] {59};
+								\node[curs node, label=5] {41};
+								\node[sort node, label=6] {58};
+
+								\draw [-{Stealth[length=1mm]}, gray] (A-4.290) to[out=270, in=270, looseness=2] (A-5.250);
+								\draw [-{Stealth[length=1mm]}]       (A-5.290) to[out=270, in=270, looseness=2] (A-4.250);
+							\end{tikzpicture}
+						}
+					}
+
+					\floatbox{figure}{\caption{}}{
+						\tikzsetnextfilename{Chapter02/insertion-sort-answer-05}
+						\scalebox{1.5}{
+							\begin{tikzpicture}[start chain = A going right]
+								\node[sort node, label=1] {26};
+								\node[sort node, label=2] {31};
+								\node[sort node, label=3] {41};
+								\node[comp node, label=4] {41};
+								\node[comp node, label=5] {59};
+								\node[curs node, label=6] {58};
+
+								\draw [-{Stealth[length=1mm]}, gray] (A-5.290) to[out=270, in=270, looseness=2] (A-6.250);
+								\draw [-{Stealth[length=1mm]}]       (A-6.290) to[out=270, in=270, looseness=2] (A-5.250);
+							\end{tikzpicture}
+						}
+					}
+
+					\floatbox{figure}{\caption{}}{
+						\tikzsetnextfilename{Chapter02/insertion-sort-answer-06}
+						\scalebox{1.5}{
+							\begin{tikzpicture}[start chain = A going right]
+								\node[sort node, label=1] {26};
+								\node[sort node, label=2] {31};
+								\node[sort node, label=3] {41};
+								\node[sort node, label=4] {41};
+								\node[sort node, label=5] {58};
+								\node[sort node, label=6] {59};
 							\end{tikzpicture}
 						}
 					}
@@ -193,7 +252,23 @@
 		% 2.1-2
 		\item Rewrite the \textsc{Insertion-Sort} procedure to sort into nonincreasing instead of nondecreasing order.
 		\begin{answer}
-			
+			\hfill\\
+			\begin{algorithm}[H]
+				\SetKwProg{Fn}{def}{\string:}{end}
+				\SetKwFunction{FSort}{Insertion-Sort}
+
+				\Fn{\FSort{$A[1 \dots n]$}}{
+					\For{$j = n-1\ \KwTo\ 1$}{
+						$key \leftarrow A[j]$\;
+						$i \leftarrow j + 1$\;
+						\While{$i \leq n$ {\bf and} $A[i] < key$}{
+							$A[i - 1] \leftarrow A[i]$\;
+							$i \leftarrow i + 1$\;
+						}
+						$A[i - 1] \leftarrow key$\;
+					}
+				}
+			\end{algorithm}
 		\end{answer}
 
 		% 2.1-3
