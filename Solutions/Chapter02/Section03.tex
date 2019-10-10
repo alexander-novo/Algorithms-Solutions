@@ -1,0 +1,60 @@
+%!TEX root = ../../Algorithms.tex
+\documentclass[Chapter02]{subfiles}
+
+\begin{document}
+	\subsection{Designing algorithms}
+
+	\begin{enumerate}[leftmargin=\labelsep]
+		%2.3-1
+		\item Using Figure 2.4 as a model, illustrate the operation of merge sort on the array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
+		\begin{answer}
+			
+		\end{answer}
+
+		%2.3-2
+		\item Rewrite the \textsc{Merge} procedure so that it does not use sentinels, instead stopping once either array $L$ or $R$ has had all its elements copied back to $A$ and then copying the remained of the other array back into $A$.
+		\begin{answer}
+			
+		\end{answer}
+
+		%2.3-3
+		\item Use mathematical induction to show that when $n$ is an exact power of 2, the solution of the recurrence
+		\[
+			T(n) = 
+			\begin{cases}
+				2, & n = 2\\
+				2T(n / 2) + n, & n = 2^k,\ k > 1
+			\end{cases}
+		\]
+		is $T(n) = n\lg(n)$.
+		\begin{answer}
+			
+		\end{answer}
+
+		%2.3-4
+		\item We can express insertion sort as a recursive procedure as follows. In order to sort $A[1 \dots n]$, we recursively sort $A[1 \dots n-1]$ and then insert $A[n]$ into the sorted array $A[1 \dots n-1]$. Write a recurrence for the worst-case running time of this recursive version of insertion sort.
+		\begin{answer}
+			
+		\end{answer}
+
+		%2.3-5
+		\item \label{exer:binary-search} Referring back to the searching problem (see Exercise \ref{exer:linear-search}), observe that if the sequence $A$ is sorted, we can check the midpoint of the sequence against $v$ and eliminate half of the sequence from further consideration. The \textbf{\textit{binary search}} algorithm repeats this procedure, halving the size of the remaining portion of the sequence each time. Write pseudocode, either iterative or recursive, for \textsc{Binary-Search}. Argue that the worst-case running time of binary search is $\Theta(n \lg(n))$.
+		\begin{answer}
+			
+		\end{answer}
+
+		%2.3-6
+		\item Observe that the \textbf{while} loop of lines 5-7 of the \textsc{Insertion-Sort} procedure in Section 2.1 uses a linear search to scan (backward) through the sorted sub-array $A[1 \dots j - 1]$. Can we use binary search (see Exercise \ref{exer:binary-search}) instead to improve the overall worst-case running time of insertion sort to $\Theta(n \lg(n))$?
+		\begin{answer}
+			
+		\end{answer}
+
+		%2.3-7
+		\item $\bigstar$ Describe a $\Theta(n \lg(n))$-time algorithm that, given a set $S$ of $n$ integers and another integer $x$, determines whether or not there exist two elements in $S$ whose sum is exactly $x$.
+		\begin{answer}
+			
+		\end{answer}
+
+		
+	\end{enumerate}
+\end{document}
