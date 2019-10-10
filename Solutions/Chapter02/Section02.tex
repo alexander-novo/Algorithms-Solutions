@@ -8,25 +8,90 @@
 		%2.2-1
 		\item Express the function $n^3/1000 - 100n^2 - 100n + 3$ in terms of $\Theta$-notation.
 		\begin{answer}
-			
+			We have
+			\begin{align*}
+				n^3/1000 - 100n^2 - 100n + 3 &= \Theta(n^3) + \Theta(n^2) + \Theta(n) + \Theta(1)\\
+					&= \Theta(n^3) + \bigO(n^3) + \bigO(n^3) + \bigO(n^3)\\
+					&= \boxed{\Theta(n^3)}.
+			\end{align*}
 		\end{answer}
 
 		%2.2-2
 		\item Consider sorting $n$ numbers stored in an array $A$ by first finding the smallest element of $A$ and exchanging it with the element in $A[1]$. Then find the second smallest element of $A$, and exchange it with $A[2]$. Continue in this manner for the first $n - 1$ elements of $A$. Write pseudocode for this algorithm, which is known as \textbf{\textit{selection sort}}. What loop invariant does this algorithm maintain? Why does it need to run for only the first $n - 1$ elements, rather than for all $n$ elements? Give the best-case and worst-case running times of selection sort in $\Theta$-notation.
 		\begin{answer}
-			
+			\hfill\\
+			\begin{algorithm}[H]
+				\SetKwProg{Fn}{def}{\string:}{end}
+				\SetKwFunction{FSort}{Selection-Sort}
+				\SetKwFunction{FSwap}{Swap}
+
+				\Fn{\FSort{$A[1 \dots n]$}}{
+					\For(\tcp*[f]{$n$}){$i = 1\ \KwTo\ n - 1$}{
+						$min \leftarrow i$ \tcp*[r]{$n - 1$}
+						\For(\tcp*[f]{$\sum_{i = 1}^{n - 1} (n - i)$}){$j = i + 1\ \KwTo\ n$}{
+							\If(\tcp*[f]{$\sum_{i = 1}^{n - 1} (n - i - 1)$}){$A[j] < A[min]$}{
+								$min \leftarrow j$\;
+							}
+						}
+						\FSwap{$A[i], A[min]$}\;
+					}
+				}
+			\end{algorithm}
+
+			This algorithm maintains the following loop invariant:
+			\begin{addmargin}[2em]{2em}
+				At the start of each iteration of the \textbf{for} loop of lines 2-10, the sub-array $A[1 \dots i - 1]$ is sorted, and every element in $A[1 \dots i - 1]$ is less than or equal to every element in $A[i \dots n]$.
+			\end{addmargin}
+
+			The key to why the algorithm only needs to run for the first $n - 1$ elements lies in the termination of this loop invariant:
+			\begin{description}
+				\item[Initialization:] The loop invariant is trivially satisfied, as $A[1 \dots 0]$ is empty.
+
+				\item[Maintenance:] Since all of the elements in the sub-array $A[1 \dots i - 1]$ are smaller than (or equal to) all of the elements in $A[i \dots n]$, by swapping any element into $A[i]$ from $A[i \dots n]$ means $A[1 \dots i]$ is sorted. By making this element be the smallest element in $A[i \dots n]$, we maintain that all of the elements in $A[1 \dots i]$ are smaller than or equal to $A[i + 1 \dots n]$.
+
+				\item[Termination:] The loop terminates when $i = n$. Therefore, the sub-array $A[1 \dots n - 1]$ is sorted, and every element in $A[1 \dots n - 1]$ is smaller than (or equal to) $A[n]$. Therefore $A[1 \dots n]$ is sorted.
+			\end{description}
+
+			No loop terminates early under any circumstance and all \textbf{if} statements contain only $\Theta(1)$-time statements, so the best-case and worst-case running-times of \textsc{Selection-Sort} are the same. We wish to expand out some sums seen above:
+			\begin{align*}
+				\sum_{i = 1}^{n - 1} (n - i) &= \sum_{i = 1}^{n - 1} n - \sum_{i = 1}^{n - 1} i\\
+					&= n(n - 1) - \frac{(n-1)n}{2}\\
+					&= \frac{n(n-1)}{2}\\
+					&= \Theta(n^2),\\
+				\sum_{i = 1}^{n - 1} (n - i - 1) &= \sum_{i = 1}^{n - 1} (n - i) - \sum_{i = 1}^{n - 1} 1\\
+				    &= \Theta(n^2) - (n - 1)\\
+				    &= \Theta(n^2) - \bigO(n^2)\\
+				    &= \Theta(n^2).
+			\end{align*}
+			Then the best-case and worst-case running-times are
+			\begin{align*}
+				n + (n - 1) + \Theta(n^2) + \Theta(n^2) &= \bigO(n^2) + \bigO(n^2) + \Theta(n^2) + \Theta(n^2)\\
+					&= \boxed{\Theta(n^2)}.
+			\end{align*}
 		\end{answer}
 
 		%2.2-3
 		\item Consider linear search again (see Exercise \ref{exer:linear-search}). How many elements of the input sequence need to be checked on the average, assuming that the element being searched for is equally likely to be any element in the array? How about in the worst case? What are the average-case and worst-case running times of linear search in $\Theta$-notation? Justify your answers.
 		\begin{answer}
-			
+			For an element in index $i$, there are $i - 1$ possible elements to compare to (all previous elements in the array). With an equally likely chance of stopping at any one of these elements ($\frac{1}{n}$ for each), the expected number number of comparisons is $\frac{1 + (i - 1)}{2} = \boxed{\frac{i}{2}}$, as a uniformly distributed random variable. In the worst case, we compare against all $\boxed{i - 1}$ elements. Then our expected average-case running time is
+			\begin{align*}
+				n + (n - 1) + (n - 1) + \sum_{i = 1}^{n - 1} \frac{i}{2} + (n - 1) &= \Theta(n) + \frac{(n-1)n}{4}\\
+					&= \bigO(n^2) + \Theta(n^2)\\
+					&= \boxed{\Theta(n^2)}.
+			\end{align*}
+			Our expected worst-case running time is
+			\begin{align*}
+				n + (n - 1) + (n - 1) + \sum_{i = 1}^{n - 1} (i - 1) + (n - 1) &= \Theta(n) + \sum_{i = 1}^{n - 1} i - \sum_{i = 1}^{n - 1} 1\\
+					&= \Theta(n) + \frac{(n - 1)n}{2} - (n - 1)\\
+					&= \bigO(n^2) + \Theta(n^2) - \bigO(n^2)\\
+					&= \boxed{\Theta(n^2)}.
+			\end{align*}
 		\end{answer}
 
 		%2.2-4
 		\item How can we modify almost any algorithm to have a good best-case running time?
 		\begin{answer}
-			
+			We can simply pre-compute the correct output for some set of inputs, and modify our algorithm to first check if our input is one of the pre-computed ones. Then the best-case running time of the algorithm is simply the time it takes to check if the input is one of the pre-computed ones. For input structures such as arrays, the running time of this check is $\Theta(n)$.
 		\end{answer}
 
 	\end{enumerate}
