@@ -319,9 +319,9 @@
 			\begin{description}
 				\item[Input:] Two $n$-element sequences $A = \langle a_1, a_2, \dots, a_n \rangle$ and $B = \langle b_1, b_2, \dots, b_n \rangle$ which represent binary numbers, $a_i,b_i \in \{0, 1\}$ for all $1 \leq i \leq n$.
 
-				\item[Output:] An $(n + 1)$-element sequence $C = \langle c_1, c_2, \dots, c_{n + 1} \rangle$ which represents the sum of the two binary numbers given above, i.e.
+				\item[Output:] An $(n + 1)$-element sequence $C = \langle c_1, c_2, \dots, c_{n + 1} \rangle$ which represents the binary sum of the two binary numbers given above, i.e. $c_i \in \{0, 1\}$ for all $1 \leq i \leq n + 1$
 				\[
-					\sum_{i = 1}^{n + 1} c_i2^{i - 1} &= \qty(\sum_{i = 1}^{n} a_i2^{i - 1}) + \qty(\sum_{i = 1}^{n} b_i2^{i - 1}).
+					\sum_{i = 1}^{n + 1} c_i2^{i - 1} = \qty(\sum_{i = 1}^{n} a_i2^{i - 1}) + \qty(\sum_{i = 1}^{n} b_i2^{i - 1}).
 				\]
 			\end{description}
 
@@ -359,21 +359,45 @@
 			\begin{addmargin}[2em]{2em}
 				At the start of each iteration of the \textbf{for} loop of lines 3-11, the values $c_j \in \{0,1\}$ for $1 \leq j \leq i - 1$ and
 				\[
-					\sum_{j = 1}^{i - 1} c_j2^{j - 1} + (carry_{(i - 1)}) \cdot 2^{i-1} = \qty(\sum_{j = 1}^{i - 1} a_j 2^{j - 1}) + \qty(\sum_{j = 1}^{i - 1} b_j 2^{j - 1}).
+					\sum_{j = 1}^{i - 1} c_j2^{j - 1} + (carry_{(i - 1)})2^{i-1} = \qty(\sum_{j = 1}^{i - 1} a_j 2^{j - 1}) + \qty(\sum_{j = 1}^{i - 1} b_j 2^{j - 1}).
 				\]
 			\end{addmargin}
 
 			\begin{description}
 				\item[Initialization:] This is trivially true, as $i - 1 = 0$, so we don't have to worry about any elements of $C$ yet. As well, the sum evaluates to $0 + (carry_1)2^0 = 0 + 0$, which is true, since $carry_1 = 0$.
 
-				\item[Maintenance:] Observe that $carry \in \{0,1\}$ for the entire algorithm. Since $A[i], B[i], carry_{(i - 1)} \leq 1$, then $A[i] + B[i] + carry_{(i - 1)} \leq 3$. Then we have two cases:
+				\item[Maintenance:] Observe that $carry \in \{0,1\}$ for the entire algorithm. Since $a_i, b_i, carry_{(i - 1)} \leq 1$, then $a_i + b_i + carry_{(i - 1)} \leq 3$. Then we have two cases:
 				\begin{description}
-					\item[Case 1:] $A[i] + B[i] + carry_{(i - 1)} \leq 1$. Then $C[i] \in \{0, 1\}$, the next $carry_i = 0$, and
+					\item[Case 1:] $c_i = a_i + b_i + carry_{(i - 1)} \leq 1$. Then $c_i \in \{0, 1\}$, the next $carry_i = 0$, and
 					\begin{align*}
 						\sum_{j = 1}^{i} c_j2^{j - 1} + (carry_i) \cdot 2^{i} &= \sum_{j = 1}^{i - 1} c_j2^{j - 1} + c_i2^{i - 1}\\
-						                                                      &= \sum_{j = 1}^{i - 1} c_j2^{j - 1} + \qty(a_i + b_i + (carry_{(i - 1)}))\\
+							&= \sum_{j = 1}^{i - 1} c_j2^{j - 1} + \qty(a_i + b_i + (carry_{(i - 1)}))2^{i - 1}\\
+							&= \qty(\sum_{j = 1}^{i - 1} c_j2^{j - 1} + (carry_{(i - 1)})2^{i - 1}) + (a_i + b_i)2^{i - 1}\\
+							&= \qty(\sum_{j = 1}^{i - 1} a_j 2^{j - 1}) + \qty(\sum_{j = 1}^{i - 1} b_j 2^{j - 1}) + (a_i + b_i)2^{i - 1}\\
+							&= \qty(\sum_{j = 1}^{i - 1} a_j 2^{j - 1} + a_i2^{i - 1}) + \qty(\sum_{j = 1}^{i - 1} b_j 2^{j - 1} + b_i2^{i-1})\\
+							&= \qty(\sum_{j = 1}^i a_j 2^{j - 1}) + \qty(\sum_{j = 1}^i b_j 2^{j - 1}).
+					\end{align*}
+
+					\item[Case 2:] $2 \leq a_i + b_i + carry_{(i - 1)} \leq 3$. Then $c_i = a_i + b_i + carry_{(i - 1)} - 2 \in \{0, 1\}$, the next $carry_i = 1$, and
+					\begin{align*}
+						\sum_{j = 1}^{i} c_j2^{j - 1} + (carry_i) \cdot 2^{i} &= \sum_{j = 1}^{i - 1} c_j2^{j - 1} + c_i2^{i - 1} + 2^i\\
+							&= \sum_{j = 1}^{i - 1} c_j2^{j - 1} + (a_i + b_i + carry_{(i - 1)} - 2)2^{i - 1} + 2^i\\
+							&= \qty(\sum_{j = 1}^{i - 1} c_j2^{j - 1} + carry_{(i - 1)}2^{i - 1}) + (a_i + b_i) 2^{i - 1} - \cancel{2^i + 2^i}\\
+							&= \qty(\sum_{j = 1}^{i - 1} a_j 2^{j - 1}) + \qty(\sum_{j = 1}^{i - 1} b_j 2^{j - 1}) + (a_i + b_i) 2^{i - 1}\\
+							&= \qty(\sum_{j = 1}^{i - 1} a_j 2^{j - 1} + a_i 2^{i - 1}) + \qty(\sum_{j = 1}^{i - 1} b_j 2^{j - 1} + b_i 2^{i - 1})\\
+							&= \qty(\sum_{j = 1}^i a_j 2^{j - 1}) + \qty(\sum_{j = 1}^i b_j 2^{j - 1}).
 					\end{align*}
 				\end{description}
+
+				\item[Termination:] The loop terminates when $i = n + 1$, so $c_j \in \{0,1\}$ for all $1 \leq j \leq i - 1 = n$. As well, $c_{n + 1} = carry_n \in \{0, 1\}$. Then we have
+				\begin{align*}
+					\sum_{j = 1}^{n + 1} c_j2^{j - 1} &= \sum_{j = 1}^n c_j2^{j - 1} + c_{n + 1}2^n\\
+						&= \sum_{j = 1}^{i - 1} c_j2^{j - 1} + carry_{(i - 1)} 2^{i - 1}\\
+					\shortintertext{(Since the algorithm terminates by assigning $C[n + 1] \leftarrow carry$)}
+						&= \qty(\sum_{j = 1}^{i - 1} a_j 2^{j - 1}) + \qty(\sum_{j = 1}^{i - 1} b_j 2^{j - 1})\\
+						&= \qty(\sum_{j = 1}^n a_j 2^{j - 1}) + \qty(\sum_{j = 1}^n b_j 2^{j - 1}).
+				\end{align*}
+				Therefore, our algorithm is correct.
 			\end{description}
 		\end{answer}
 	\end{enumerate}
