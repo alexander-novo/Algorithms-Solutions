@@ -28,13 +28,27 @@
 		\]
 		is $T(n) = n\lg(n)$.
 		\begin{answer}
-			
+			For $n = 2^1$, we have $T(2) = 2 = 2 \cdot 1 = 2 \lg(2)$, so the solution works for $k = 1$. Then, assume $T(2^k) = 2^k \lg(2^k)$ for some $k$. We have
+			\begin{align*}
+				T(2^{k + 1}) &= 2T(2^{k+1} / 2) + 2^{k + 1}\\
+					&=  2T(2^k) + 2^{k + 1}\\
+					&= 2\qty(2^k \lg(2^k)) + 2^{k + 1}\\
+					&= 2^{k + 1} \lg(2^k) + 2^{k + 1}\\
+					&= 2^{k + 1}(\lg(2^k) + 1)\\
+					&= 2^{k + 1}(\lg(2^k) + \lg(2))\\
+					&= 2^{k + 1}\lg(2 \cdot 2^k)\\
+					&= 2^{k + 1}\lg(2^{k + 1}).
+			\end{align*}
+			Threfore, by induction, the solution works for all $k \geq 1$.
 		\end{answer}
 
 		%2.3-4
 		\item We can express insertion sort as a recursive procedure as follows. In order to sort $A[1 \dots n]$, we recursively sort $A[1 \dots n-1]$ and then insert $A[n]$ into the sorted array $A[1 \dots n-1]$. Write a recurrence for the worst-case running time of this recursive version of insertion sort.
 		\begin{answer}
-			
+			Since the worst-case running time of inserting an element into a sorted array of size $n$ is $n$ (as we might have to insert the element at the front of the sorted array), our recurrence is
+			\begin{align*}
+				T(n) &= T(n - 1) + (n - 1).
+			\end{align*}
 		\end{answer}
 
 		%2.3-5
