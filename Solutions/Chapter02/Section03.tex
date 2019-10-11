@@ -1,12 +1,168 @@
 %!TEX root = ../../Algorithms.tex
 \documentclass[Chapter02]{subfiles}
 
+\tikzset{
+	node distance = .5cm,
+	merge node/.style = {
+		on chain
+	},
+	merge box/.style = {
+		draw,
+		rectangle,
+		fill = gray
+	},
+	every path/.style = {
+		-{Stealth},
+		very thick
+	},
+	level 1/.style = {
+		shorten >= .5cm,
+		shorten <= .5cm
+	},
+	level 2/.style = {
+		shorten >= .25cm,
+		shorten <= .25cm
+	},
+	level 3/.style = {
+		shorten >= .15cm,
+		shorten <= .15cm
+	}
+}
+
 \begin{document}
 	\subsection{Designing algorithms}
 
 	\begin{enumerate}[leftmargin=\labelsep]
 		%2.3-1
 		\item Using Figure 2.4 as a model, illustrate the operation of merge sort on the array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
+
+		\begin{figure}[H]
+			\centering
+			\tikzsetnextfilename{Chapter02/figure-2.4}
+			\begin{tikzpicture}
+				\begin{scope}[start chain = A going right]
+					\node[merge node] {1};
+					\node[merge node] {2};
+					\node[merge node] {2};
+					\node[merge node] {3};
+					\node[merge node] {4};
+					\node[merge node] {5};
+					\node[merge node] {6};
+					\node[merge node] {7};
+
+					\begin{scope}[on background layer]
+						\node[merge box, fit = (A-1) (A-8), label={sorted sequence}] (box1) {};
+					\end{scope}
+				\end{scope}
+
+				\begin{scope}[start chain = A going left]
+					\node[merge node, below left = 1.4 and 2.25 of box1.south] {7};
+					\node[merge node] {5};
+					\node[merge node] {4};
+					\node[merge node] {2};
+
+					\begin{scope}[on background layer]
+						\node[merge box, fit = (A-1) (A-4)] (box2-1) {};
+					\end{scope}
+				\end{scope}
+
+				\begin{scope}[start chain = A going left]
+					\node[merge node, below left = 1.4 and 1.25 of box2-1.south] {5};
+					\node[merge node] {2};
+
+					\begin{scope}[on background layer]
+						\node[merge box, fit = (A-1) (A-2)] (box3-1) {};
+					\end{scope}
+				\end{scope}
+
+				\node[merge box, below left = 1.4 and .75 of box3-1.south] (box4-1) {5};
+				\node[merge box, below right = 1.4 and .75 of box3-1.south] (box4-2) {2};
+
+				\begin{scope}[start chain = A going right]
+					\node[merge node, below right = 1.4 and 1.25 of box2-1.south] {4};
+					\node[merge node] {7};
+
+					\begin{scope}[on background layer]
+						\node[merge box, fit = (A-1) (A-2)] (box3-2) {};
+					\end{scope}
+				\end{scope}
+
+				\node[merge box, below left = 1.4 and .75 of box3-2.south] (box4-3) {4};
+				\node[merge box, below right = 1.4 and .75 of box3-2.south] (box4-4) {7};
+
+				\begin{scope}[start chain = A going right]
+					\node[merge node, below right = 1.4 and 2.25 of box1.south] {1};
+					\node[merge node] {2};
+					\node[merge node] {3};
+					\node[merge node] {6};
+
+					\begin{scope}[on background layer]
+						\node[merge box, fit = (A-1) (A-4)] (box2-2) {};
+					\end{scope}
+				\end{scope}
+
+				\begin{scope}[start chain = A going left]
+					\node[merge node, below left = 1.4 and 1.25 of box2-2.south] {3};
+					\node[merge node] {1};
+
+					\begin{scope}[on background layer]
+						\node[merge box, fit = (A-1) (A-2)] (box3-3) {};
+					\end{scope}
+				\end{scope}
+
+				\node[merge box, below left = 1.4 and .75 of box3-3.south] (box4-5) {1};
+				\node[merge box, below right = 1.4 and .75 of box3-3.south] (box4-6) {3};
+
+				\begin{scope}[start chain = A going right]
+					\node[merge node, below right = 1.4 and 1.25 of box2-2.south] {2};
+					\node[merge node] {6};
+
+					\begin{scope}[on background layer]
+						\node[merge box, fit = (A-1) (A-2)] (box3-4) {};
+					\end{scope}
+				\end{scope}
+
+				\node[merge box, below left = 1.4 and .75 of box3-4.south] (box4-7) {2};
+				\node[merge box, below right = 1.4 and .75 of box3-4.south] (box4-8) {6};
+
+				% ==============================================================================
+
+				\node[below = .7 of box1] {merge};
+
+				\node[below = .7 of box2-1] {merge};
+				\node[below = .7 of box2-2] {merge};
+
+				\node[below = .7 of box3-1] {merge};
+				\node[below = .7 of box3-2] {merge};
+				\node[below = .7 of box3-3] {merge};
+				\node[below = .7 of box3-4] {merge};
+
+				\node[fit = (box4-1) (box4-8)] (bottom) {};
+				\node[below = 0 of bottom] {initial sequence};
+
+				% ==============================================================================
+
+
+				\draw[level 1] (box2-1.north) -- (box1.200);
+				\draw[level 1] (box2-2.north) -- (box1.340);
+
+				\draw[level 2] (box3-1.north) -- (box2-1.220);
+				\draw[level 2] (box3-2.north) -- (box2-1.320);
+				\draw[level 2] (box3-3.north) -- (box2-2.220);
+				\draw[level 2] (box3-4.north) -- (box2-2.320);
+
+				\draw[level 3] (box4-1.north) -- (box3-1.240);
+				\draw[level 3] (box4-2.north) -- (box3-1.300);
+				\draw[level 3] (box4-3.north) -- (box3-2.240);
+				\draw[level 3] (box4-4.north) -- (box3-2.300);
+				\draw[level 3] (box4-5.north) -- (box3-3.240);
+				\draw[level 3] (box4-6.north) -- (box3-3.300);
+				\draw[level 3] (box4-7.north) -- (box3-4.240);
+				\draw[level 3] (box4-8.north) -- (box3-4.300);
+			\end{tikzpicture}
+
+			\caption{Figure 2.4 from the book, included for reference.}
+		\end{figure}
 		\begin{answer}
 			
 		\end{answer}
