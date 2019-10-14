@@ -164,13 +164,180 @@
 			\caption{Figure 2.4 from the book, included for reference.}
 		\end{figure}
 		\begin{answer}
-			
+
+			\begin{figure}[H]
+				\centering
+				\tikzsetnextfilename{Chapter02/merge-answer}
+				\begin{tikzpicture}
+					\begin{scope}[start chain = A going right]
+						\node[merge node] {3};
+						\node[merge node] {9};
+						\node[merge node] {26};
+						\node[merge node] {38};
+						\node[merge node] {41};
+						\node[merge node] {49};
+						\node[merge node] {52};
+						\node[merge node] {57};
+
+						\begin{scope}[on background layer]
+							\node[merge box, fit = (A-1) (A-8), label={sorted sequence}] (box1) {};
+						\end{scope}
+					\end{scope}
+
+					\begin{scope}[start chain = A going left]
+						\node[merge node, below left = 1.4 and 2.25 of box1.south] {52};
+						\node[merge node] {41};
+						\node[merge node] {26};
+						\node[merge node] {3};
+
+						\begin{scope}[on background layer]
+							\node[merge box, fit = (A-1) (A-4)] (box2-1) {};
+						\end{scope}
+					\end{scope}
+
+					\begin{scope}[start chain = A going left]
+						\node[merge node, below left = 1.4 and 1.25 of box2-1.south] {41};
+						\node[merge node] {3};
+
+						\begin{scope}[on background layer]
+							\node[merge box, fit = (A-1) (A-2)] (box3-1) {};
+						\end{scope}
+					\end{scope}
+
+					\node[merge box, below left = 1.4 and .75 of box3-1.south] (box4-1) {3};
+					\node[merge box, below right = 1.4 and .75 of box3-1.south] (box4-2) {41};
+
+					\begin{scope}[start chain = A going right]
+						\node[merge node, below right = 1.4 and 1.25 of box2-1.south] {26};
+						\node[merge node] {52};
+
+						\begin{scope}[on background layer]
+							\node[merge box, fit = (A-1) (A-2)] (box3-2) {};
+						\end{scope}
+					\end{scope}
+
+					\node[merge box, below left = 1.4 and .75 of box3-2.south] (box4-3) {52};
+					\node[merge box, below right = 1.4 and .75 of box3-2.south] (box4-4) {26};
+
+					\begin{scope}[start chain = A going right]
+						\node[merge node, below right = 1.4 and 2.25 of box1.south] {9};
+						\node[merge node] {38};
+						\node[merge node] {49};
+						\node[merge node] {57};
+
+						\begin{scope}[on background layer]
+							\node[merge box, fit = (A-1) (A-4)] (box2-2) {};
+						\end{scope}
+					\end{scope}
+
+					\begin{scope}[start chain = A going left]
+						\node[merge node, below left = 1.4 and 1.25 of box2-2.south] {57};
+						\node[merge node] {38};
+
+						\begin{scope}[on background layer]
+							\node[merge box, fit = (A-1) (A-2)] (box3-3) {};
+						\end{scope}
+					\end{scope}
+
+					\node[merge box, below left = 1.4 and .75 of box3-3.south] (box4-5) {38};
+					\node[merge box, below right = 1.4 and .75 of box3-3.south] (box4-6) {57};
+
+					\begin{scope}[start chain = A going right]
+						\node[merge node, below right = 1.4 and 1.25 of box2-2.south] {9};
+						\node[merge node] {49};
+
+						\begin{scope}[on background layer]
+							\node[merge box, fit = (A-1) (A-2)] (box3-4) {};
+						\end{scope}
+					\end{scope}
+
+					\node[merge box, below left = 1.4 and .75 of box3-4.south] (box4-7) {9};
+					\node[merge box, below right = 1.4 and .75 of box3-4.south] (box4-8) {49};
+
+					% ==============================================================================
+
+					\node[below = .7 of box1] {merge};
+
+					\node[below = .7 of box2-1] {merge};
+					\node[below = .7 of box2-2] {merge};
+
+					\node[below = .7 of box3-1] {merge};
+					\node[below = .7 of box3-2] {merge};
+					\node[below = .7 of box3-3] {merge};
+					\node[below = .7 of box3-4] {merge};
+
+					\node[fit = (box4-1) (box4-8)] (bottom) {};
+					\node[below = 0 of bottom] {initial sequence};
+
+					% ==============================================================================
+
+
+					\draw[level 1] (box2-1.north) -- (box1.200);
+					\draw[level 1] (box2-2.north) -- (box1.340);
+
+					\draw[level 2] (box3-1.north) -- (box2-1.220);
+					\draw[level 2] (box3-2.north) -- (box2-1.320);
+					\draw[level 2] (box3-3.north) -- (box2-2.220);
+					\draw[level 2] (box3-4.north) -- (box2-2.320);
+
+					\draw[level 3] (box4-1.north) -- (box3-1.240);
+					\draw[level 3] (box4-2.north) -- (box3-1.300);
+					\draw[level 3] (box4-3.north) -- (box3-2.240);
+					\draw[level 3] (box4-4.north) -- (box3-2.300);
+					\draw[level 3] (box4-5.north) -- (box3-3.240);
+					\draw[level 3] (box4-6.north) -- (box3-3.300);
+					\draw[level 3] (box4-7.north) -- (box3-4.240);
+					\draw[level 3] (box4-8.north) -- (box3-4.300);
+				\end{tikzpicture}
+
+				\caption{Merging $A$.}
+				\label{fig:ch02-merge}
+			\end{figure}
+
+			See \autoref{fig:ch02-merge}.
 		\end{answer}
 
 		%2.3-2
 		\item Rewrite the \textsc{Merge} procedure so that it does not use sentinels, instead stopping once either array $L$ or $R$ has had all its elements copied back to $A$ and then copying the remained of the other array back into $A$.
 		\begin{answer}
-			
+			See \autoref{alg:ch02-Merge}.
+
+			\begin{algorithm}[H]
+				\caption{\textsc{Merge} redesigned to not use sentinels.}
+				\label{alg:ch02-Merge}
+				\SetKwProg{Fn}{def}{\string:}{end}
+				\SetKwFunction{FMerge}{Merge}
+
+				\Fn{\FMerge{$A[p \dots q, q + 1, \dots \dots r]$}}{
+					$n_1 \leftarrow q - p + 1$\;
+					$n_2 \leftarrow r - q$\;
+					\For{$i = 1\ \KwTo\ n_1$}{
+						$L[i] \leftarrow A[p + i - 1]$\;
+					}
+					\For{$j = 1\ \KwTo\ n_2$}{
+						$R[j] \leftarrow A[q + j]$\;
+					}
+					$i \leftarrow 1$\;
+					$j \leftarrow 1$\;
+					\For{$k = 1\ \KwTo\ \min\{n_1, n_2\}$}{
+						\eIf{$L[i] \leq R[j]$}{
+							$A[k] \leftarrow L[i]$\;
+							$i \leftarrow i + 1$\;
+						}{
+							$A[k] \leftarrow R[j]$\;
+							$j \leftarrow j + 1$\;
+						}
+					}
+					\For{$i\ \KwTo\ n_1$}{
+						$A[k] \leftarrow L[i]$\;
+						$k \leftarrow k + 1$\;
+					}
+					\For{$j\ \KwTo\ n_2$}{
+						$A[k] \leftarrow R[j]$\;
+						$k \leftarrow k + 1$\;
+					}
+				}
+			\end{algorithm}
 		\end{answer}
 
 		%2.3-3
@@ -208,13 +375,52 @@
 		\end{answer}
 
 		%2.3-5
-		\item \label{exer:binary-search} Referring back to the searching problem (see Exercise \ref{exer:linear-search}), observe that if the sequence $A$ is sorted, we can check the midpoint of the sequence against $v$ and eliminate half of the sequence from further consideration. The \textbf{\textit{binary search}} algorithm repeats this procedure, halving the size of the remaining portion of the sequence each time. Write pseudocode, either iterative or recursive, for \textsc{Binary-Search}. Argue that the worst-case running time of binary search is $\Theta(n \lg(n))$.
+		\item \label{exer:ch02-binary-search} Referring back to the searching problem (see Exercise \ref{exer:ch02-linear-search}), observe that if the sequence $A$ is sorted, we can check the midpoint of the sequence against $v$ and eliminate half of the sequence from further consideration. The \textbf{\textit{binary search}} algorithm repeats this procedure, halving the size of the remaining portion of the sequence each time. Write pseudocode, either iterative or recursive, for \textsc{Binary-Search}. Argue that the worst-case running time of binary search is $\Theta(\lg(n))$.
 		\begin{answer}
-			
+			See \autoref{alg:ch02-binary-search}.
+
+			\begin{algorithm}[H]
+				\caption{\textsc{Binary-Search}}
+				\label{alg:ch02-binary-search}
+				\SetKwProg{Fn}{def}{\string:}{end}
+				\SetKwFunction{FSearch}{Binary-Search}
+
+				\Fn{\FSearch{$A[a \dots b], v$}}{
+					\If{$b < a$}{
+						\Return{{\tt NIL}}\;
+					}
+
+					$m \leftarrow \left\lfloor \frac{a + b}{2} \right\rfloor$\;
+					\uIf{$A[m] = v$}{
+						\Return{m}\;
+					}
+					\uElseIf{$v > A[m]$}{
+						\Return{\FSearch{$A[m + 1 \dots b], v$}}\;
+					}
+					\Else{
+						\Return{\FSearch{$A[a \dots m - 1], v$}}\;
+					}
+				}
+			\end{algorithm}
+
+			The worst-case scenario for this algorithm happens when it terminates due to $b < a$ - this happens when there are only one or two elements left in $A$, and neither one of them are $v$. Since the algorithm effectively halves the size of $A$ each time it runs, we have a recurrence for the worst-case runtime $T(n)$ of the algorithm in the worst-case on an array of size $n$:
+			\[
+				T(n) =
+				\begin{cases}
+					c, &n \leq 2\\
+					T(n/2) + c &n > 2
+				\end{cases}.
+			\]
+			Then we have
+			\begin{align*}
+				T(n) &= \sum_{i = 1}^{\lg(n)} c\\
+				     &= c\lg(n)\\
+				     &= \Theta(\lg(n)).
+			\end{align*}
 		\end{answer}
 
 		%2.3-6
-		\item Observe that the \textbf{while} loop of lines 5-7 of the \textsc{Insertion-Sort} procedure in Section 2.1 uses a linear search to scan (backward) through the sorted sub-array $A[1 \dots j - 1]$. Can we use binary search (see Exercise \ref{exer:binary-search}) instead to improve the overall worst-case running time of insertion sort to $\Theta(n \lg(n))$?
+		\item Observe that the \textbf{while} loop of lines 5-7 of the \textsc{Insertion-Sort} procedure in Section 2.1 uses a linear search to scan (backward) through the sorted sub-array $A[1 \dots j - 1]$. Can we use binary search (see Exercise \ref{exer:ch02-binary-search}) instead to improve the overall worst-case running time of insertion sort to $\Theta(n \lg(n))$?
 		\begin{answer}
 			
 		\end{answer}

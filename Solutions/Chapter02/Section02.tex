@@ -71,7 +71,7 @@
 		\end{answer}
 
 		%2.2-3
-		\item Consider linear search again (see Exercise \ref{exer:linear-search}). How many elements of the input sequence need to be checked on the average, assuming that the element being searched for is equally likely to be any element in the array? How about in the worst case? What are the average-case and worst-case running times of linear search in $\Theta$-notation? Justify your answers.
+		\item Consider linear search again (see Exercise \ref{exer:ch02-linear-search}). How many elements of the input sequence need to be checked on the average, assuming that the element being searched for is equally likely to be any element in the array? How about in the worst case? What are the average-case and worst-case running times of linear search in $\Theta$-notation? Justify your answers.
 		\begin{answer}
 			The number of elements that need to be checked is between $1$ (best case) and $n$ (worst-case). If the element is equally likely to be any element in the array, then the number of elements which need to be checked in the array, $X$, is distributed uniformly across $1 \leq n$. Then the expected number of elements which need to be checked in the average-case is $\expect[X] = \fbox{$\frac{1 + n}{2}$}$. The number of elements that need to be checked in the worst-case is \fbox{$n$}, since after checking all elements, we have either found the sought-after item, or could conclude that it is not in the array. In either case, the running times are \fbox{$\Theta(n)$}.
 		\end{answer}
