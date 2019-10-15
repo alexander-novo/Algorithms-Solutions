@@ -422,15 +422,60 @@
 		%2.3-6
 		\item Observe that the \textbf{while} loop of lines 5-7 of the \textsc{Insertion-Sort} procedure in Section 2.1 uses a linear search to scan (backward) through the sorted sub-array $A[1 \dots j - 1]$. Can we use binary search (see Exercise \ref{exer:ch02-binary-search}) instead to improve the overall worst-case running time of insertion sort to $\Theta(n \lg(n))$?
 		\begin{answer}
-			
+			No - while the amount of time it takes to find the correct element (in the worst-case) is $i$ and we can improve this to $\lg(i)$, it still takes $i$ swaps to get the element into the correct position.
 		\end{answer}
 
 		%2.3-7
 		\item $\bigstar$ Describe a $\Theta(n \lg(n))$-time algorithm that, given a set $S$ of $n$ integers and another integer $x$, determines whether or not there exist two elements in $S$ whose sum is exactly $x$.
 		\begin{answer}
-			
+			\hfill\\
+			\begin{algorithm}[H]
+				\SetKwProg{Fn}{def}{\string:}{end}
+				\SetKwFunction{FSum}{Sums-To}
+				\SetKwFunction{FSort}{Merge-Sort}
+
+				\Fn{\FSum{$A[1 \dots n], x$}}{
+					\FSort{$A[1 \dots n]$}\;
+					$l \leftarrow 1$\;
+					$r \leftarrow n$\;
+					\While{$l < r$}{
+						\uIf{$A[l] + A[r] = x$}{
+							\Return{\bf true}\;
+						}
+						\uElseIf{$A[l] + A[r] < x$}{
+							$l \leftarrow l + 1$\;
+						}
+						\Else{
+							$r \leftarrow r - 1$\;
+						}
+					}
+					\Return{\bf false}
+				}
+			\end{algorithm}
+
+			We wish to show the correctness of \textsc{Sums-To}. Obviously if \textsc{Sums-To} returns \textbf{true}, then there actually is such a pair, due to the preceding \textbf{if}-statement. To show that if \textsc{Sums-To} returns false that there are no such elements which sum to $x$, we maintain the following loop invariant:
+
+			\begin{addmargin}[2em]{2em}
+				At the start of each iteration of the \textbf{while} loop of lines 5-13, none of the elements in the subarrays $A[1 \dots l - 1]$ and $A[r + 1 \dots n]$ can be used to sum up to $x$.
+			\end{addmargin}
+
+			We then check that the loop invariant holds.
+
+			\begin{description}
+				\item[Initialization:] This is trivially true for $l = 1, r = n$, as the subarrays $A[1 \dots l - 1]$ and $A[r + 1 \dots n]$ are empty.
+
+				\item[Maintenance:] We have two cases:
+				\begin{description}
+					\item[Case 1:] $A[l] + A[r] < x$. Since we have identified that the elements in $A[r + 1 \dots n]$ cannot be used to sum up to $x$, then $A[r]$ is the largest value which we can still used to sum to $x$ (since $A$ is sorted). Then $A[l] + A[i] < A[l] + A[r] < x$ for any $l < i < r$, so $A[l]$ cannot be used to sum up to $x$ and none of the elements in $A[1 \dots l]$ can be used to sum up to $x$.
+
+					\item[Case 2:] $A[l] + A[r] > x$. Since we have identified that the elements in $A[1 \dots l - 1]$ cannot be used to sum up to $x$, then $A[l]$ is the smallest value which can still be used to sum to $x$ (since $A$ is sorted). Then $A[i] + A[r] > A[l] + A[r] > x$ for any $l < i < r$, so $A[r]$ cannot be used to sum up to $x$ and none of the elements in $A[r \dots n]$ can be used to sum up to $x$.
+				\end{description}
+
+				\item[Termination:] Since $l = r$, then the only element left that can be used to sum to $x$ is $A[l]$, but we need a pair to sum to $x$. Therefore, there are no pairs of numbers which can sum to $x$.
+			\end{description}
+
+			We know that \textsc{Merge-Sort} runs in $\Theta(n \lg(n))$ worst-case time, so what remains is to check that the rest of the algorithm doesn't affect this run-time. Since, in the worst-case, the loop ends each iteration by incrementing $l$ by 1 or decrementing $r$ by 1 (but not both), the number of iterations that have run is $(l - 1) + (n - r)$. In the worst-case scenario, the loop terminates when $l = r$, so the number of times the loop has run is $(l - 1) + (n - l) = n - 1$. Then the number of extra operations we perform after \textsc{Merge-Sort} is $c_1 + n + c_2(n - 1) = \Theta(n)$. Therefore the overall runtime of the algorithm is $\Theta(n\lg(n)) + \Theta(n) = \Theta(n \lg(n)) + \bigO(n \lg(n)) = \Theta(n \lg(n))$.
 		\end{answer}
 
-		
 	\end{enumerate}
 \end{document}

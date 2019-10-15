@@ -24,7 +24,7 @@
 			\end{answer}
 
 			% b.
-			\item $\displaystyle \sum_{k = 1}^n \lg^s(k)$.
+			\item \label{exer:appA-log-sum-bound} $\displaystyle \sum_{k = 1}^n \lg^s(k)$.
 			\begin{answer}
 				We can arrive at a good upper bound by simply ``promoting'' $k$ to $n$:
 				\begin{align*}
@@ -33,8 +33,13 @@
 				\end{align*}
 				So $\displaystyle \sum_{k = 1}^n \lg^s(k) = \bigO(n\lg^s(n))$. Then, for a lower bound, we have
 				\begin{align*}
-					
+					\sum_{k = 1}^n \lg^s(k) &\geq \sum_{k = \lfloor n / 2 \rfloor}^n \lg^s(k)\\
+						&\geq \sum_{k = \lfloor n / 2 \rfloor}^n \lg^s \qty(\left\lfloor \frac{n}{2} \right\rfloor)\\
+						&\geq \frac{n}{2} \lg^s\qty(\left\lfloor \frac{n}{2} \right\rfloor)\\
+						&\geq \frac{n}{2} \qty(\lg \qty(\frac{n}{2}) - 1)^s\\
+						&\geq \frac{n}{2} \qty(\lg(n) - 2)^s,
 				\end{align*}
+				so $\displaystyle \sum_{k = 1}^n \lg^s(k) = \Omega(n\lg^s(n))$.
 			\end{answer}
 			
 			% c.
