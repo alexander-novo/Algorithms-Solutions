@@ -8,11 +8,36 @@
 		% A.2-1
 		\item Show that
 		\[
-			\sum_{k = 1}^n \frac{1}{k}^2
+			\sum_{k = 1}^n \frac{1}{k^2}
 		\]
 		is bounded above by a constant.
 		\begin{answer}
-			
+			We wish to show that not only is the given sum bounded above by 2, but that the difference $2 - \sum_{k = 1}^n \frac{1}{k^2} \geq \frac{1}{n}$. We show this by induction. We can see that for $n = 1$, we have
+			\begin{align*}
+				\sum_{k = 1}^1 \frac{1}{k^2} &= 1\\
+					&\leq 2,
+			\end{align*}
+			and
+			\begin{align*}
+				2 - 1 \geq 1.
+			\end{align*}
+			Then, assume these facts are true for some $n$. We have
+			\begin{align*}
+				\sum_{k = 1}^{n + 1} \frac{1}{k^2} &= \sum_{k = 1}^n \frac{1}{k^2} + \frac{1}{(n + 1)^2}\\
+					&\leq \sum_{k = 1}^n \frac{1}{k^2} + \frac{1}{n}\\
+					&\leq 2.
+			\end{align*}
+			As well,
+			\begin{align*}
+				2 - \sum_{k = 1}^{n + 1} \frac{1}{k^2} &= 2 - \sum_{k = 1}^n \frac{1}{k^2} - \frac{1}{(n + 1)^2}\\
+					&\geq \frac{1}{n} - \frac{1}{(n + 1)^2}\\
+					&= \frac{(n+1)^2 - n}{n(n + 1)^2}\\
+					&= \frac{n^2 + n + 1}{n(n + 1)^2}\\
+					&\geq \frac{n^2 + n}{n(n + 1)^2}\\
+					&= \frac{n(n + 1)}{n(n + 1)^2}\\
+					&= \frac{1}{n + 1}.
+			\end{align*}
+			Therefore, by induction, the given sum is bounded from above by 2.
 		\end{answer}
 
 		% A.2-2
@@ -21,13 +46,55 @@
 			\sum_{k = 0}^{\lfloor \lg n \rfloor} \left\lceil \frac{n}{2^k} \right\rceil.
 		\]
 		\begin{answer}
-			
+			Since $\lfloor \lg n \rfloor \leq n$ and $n \leq 2^n$, we have
+			\begin{align*}
+				\sum_{k = 0}^{\lfloor \lg n \rfloor} \left\lceil \frac{n}{2^k} \right\rceil &\leq \sum_{k = 0}^n \left\lceil \frac{2^n}{2^k} \right\rceil\\
+					&= \sum_{k = 0}^n 2^{n - k}\\
+					&= 2^n \sum_{k = 0}^n \qty(\frac{1}{2})^k\\
+					&= 2^n \qty(\frac{1 - \frac{1}{2^{n + 1}}}{1 - \frac{1}{2}})\\
+					&= 2^n \qty(2 - \frac{1}{2^{n}})\\
+					&= 2^{n + 1} - 1.
+			\end{align*}
+			Therefore, the given sum is \boxed{\bigO(2^n)}. However, this is a \emph{really} bad upper bound, and we can do better.
+			\begin{align*}
+				\sum_{k = 0}^{\lfloor \lg n \rfloor} \left\lceil \frac{n}{2^k} \right\rceil &\leq \sum_{k = 0}^{\lceil \lg n \rceil} \left\lceil \frac{2^{\lceil \lg n \rceil}}{2^k} \right\rceil\\
+					&= \sum_{k = 0}^{\lceil \lg n \rceil} \frac{2^{\lceil \lg n \rceil}}{2^k}\\
+					&= 2^{\lceil \lg n \rceil} \sum_{k = 0}^{\lceil \lg n \rceil} \qty(\frac{1}{2})^k\\
+					&= 2^{\lceil \lg n \rceil} \frac{1 - \frac{1}{2^{\lceil \lg n \rceil + 1}}}{1 - \frac{1}{2}}\\
+					&= 2^{\lceil \lg n \rceil + 1} - 1\\
+					&\leq 2^{\lg n + 2} - 1\\
+					&= 4n - 1.
+			\end{align*}
+			Therefore, the given sum is \boxed{\bigO(n)}.
 		\end{answer}
 		
 		% A.2-3
 		\item Show that the $n$-th harmonic number is $\Omega(\lg n)$ by splitting the summation.
 		\begin{answer}
-			
+			We split the summation in a similar way to showing the upper bound, but we instead split the range 1 to $n$ into $\lfloor \lg(n) \rfloor$ pieces and upp-erbound the contribution of each piece by $\frac{1}{2}$. See the following table for a comparison of the terms of these sums:
+			\begin{table}[H]
+				\[
+					\renewcommand{\arraystretch}{1.5}
+					\begin{array}{|c|c|c|c|c|c|c|c|c|}
+						\hline
+						n & 1 & 2 & 3 & 4 & 5 & 6 & & \\\hline
+						\text{original terms} & 1 & \frac{1}{2} & \frac{1}{3} & \frac{1}{4} & \frac{1}{5} & \frac{1}{6} & & \\\hline
+						\text{upper sum} & 1 & \frac{1}{2} & \frac{1}{2} & \frac{1}{4} & \frac{1}{4} & \frac{1}{4} & \frac{1}{4} & \frac{1}{4} \\\hline
+						\text{lower sum} & \frac{1}{2} & \frac{1}{4} & \frac{1}{4} & & & & &\\\hline
+					\end{array}
+				\]
+				\caption{A comparison of the sums used to bound $H_n$.}
+			\end{table}
+
+			Note how, since there are only $\lfloor \lg(n) \rfloor$ pieces, we aren't adding any additional terms to the sum. Then we have
+			\begin{align*}
+				\sum_{k = 1}^n \frac{1}{k} &\geq \sum_{i = 0}^{\lfloor \lg(n) \rfloor - 1} \sum_{j = 0}^{2^i - 1} \frac{1}{2^i + j}\\
+					&\geq \sum_{i = 0}^{\lfloor \lg(n) \rfloor - 1} \sum_{j = 0}^{2^i - 1} \frac{1}{2^{i + 1}}\\
+					&= \sum_{i = 0}^{\lfloor \lg(n) \rfloor - 1} \frac{1}{2}\\
+					&\geq \frac{1}{2}(\lg(n) - 2)\\
+					&= \frac{1}{2} \lg(n) - 1.
+			\end{align*}
+			Therefore, the $n$-th harmonic number is $\Omega(\lg n)$.
 		\end{answer}
 		
 		% A.2-4
@@ -37,7 +104,12 @@
 		\]
 		with an integral.
 		\begin{answer}
-			
+			We have
+			\begin{align*}
+				\int_0^n x^3 \dd x &\leq \sum_{k = 1}^n k^3 \leq \int_1^{n+1} x^3 \dd x \tag*{$\implies$}\\
+				\frac{1}{4}n^4     &\leq \sum_{k = 1}^n k^3 \leq \frac{1}{4}\qty((n+1)^4 - 1).
+			\end{align*}
+			Therefore, the given sum is $\Theta(n^4)$.
 		\end{answer}
 		
 		% A.2-5
@@ -47,7 +119,18 @@
 		\]
 		to obtain an upper bound on the $n$-th harmonic number?
 		\begin{answer}
-			
+			Since there is an asymptote at $x = 0$ in the function $f(x) = \frac{1}{x}$, the integral needed for the upperbound,
+			\[
+				\int_0^n \frac{1}{x} \dd x
+			\]
+			would be improper. The improper integral does not converge:
+			\begin{align*}
+				\int_0^n \frac{1}{x} \dd x &= \lim_{t \to 0^+} \int_t^n \frac{1}{x} \dd x\\
+					&= \lim_{t \to 0^+} \eval{\ln(x)}_{x = t}^n\\
+					&= \lim_{t \to 0^+} (\ln(n) - \ln(t))\\
+					&= \infty.
+			\end{align*}
+			An upper bound of $\infty$ is useless.
 		\end{answer}
 		
 	\end{enumerate}

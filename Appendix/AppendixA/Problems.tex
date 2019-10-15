@@ -1,0 +1,49 @@
+%!TEX root = ../../Algorithms.tex
+\documentclass[AppendixA]{subfiles}
+
+\begin{document}
+	\subsection*{Problems}
+	\addcontentsline{toc}{subsection}{Problems}
+
+	\begin{enumerate}[leftmargin=\labelsep,label={\textbf{\thesection-\arabic*}}]
+		% A-1
+		\item \textbf{\textit{Bounding summations}} Give asymptotically tight bounds on the following summations. Assume $r \geq 0$ and $s \geq 0$ are constants.
+		\begin{enumerate}
+			% a.
+			\item $\displaystyle \sum_{k = 1}^n k^r$.
+			\begin{answer}
+				Note that for $r \geq 0$, $k^r$ is monotonically increasing. Then we have
+				\begin{align*}
+					\int_a^b x^r \dd x &= \frac{1}{r + 1}(b^{r + 1} - a^{r + 1}),
+				\end{align*}
+				so
+				\begin{align*}
+					\frac{1}{r + 1} n^{r + 1} &\leq \sum_{k = 1}^n k^r \leq \frac{1}{r + 1}((n + 1)^{r + 1} - 1).
+				\end{align*}
+				Therefore, $\displaystyle \sum_{k = 1}^n k^r = \Theta(n^{r + 1})$.
+			\end{answer}
+
+			% b.
+			\item $\displaystyle \sum_{k = 1}^n \lg^s(k)$.
+			\begin{answer}
+				We can arrive at a good upper bound by simply ``promoting'' $k$ to $n$:
+				\begin{align*}
+					\sum_{k = 1}^n \lg^s(k) &\leq \sum_{k = 1}^n \lg^s(n)\\
+						&= n\lg^s(n).
+				\end{align*}
+				So $\displaystyle \sum_{k = 1}^n \lg^s(k) = \bigO(n\lg^s(n))$. Then, for a lower bound, we have
+				\begin{align*}
+					
+				\end{align*}
+			\end{answer}
+			
+			% c.
+			\item $\displaystyle \sum_{k = 1}^n k^r\lg^s(k)$.
+			\begin{answer}
+				
+			\end{answer}
+			
+		\end{enumerate}
+	\end{enumerate}
+
+\end{document}
