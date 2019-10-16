@@ -1,0 +1,173 @@
+%!TEX root = ../../Algorithms.tex
+\documentclass[Chapter02]{subfiles}
+
+\begin{document}
+	\subsection*{Problems}
+	\addcontentsline{toc}{subsection}{Problems}
+
+	\begin{enumerate}[leftmargin=\labelsep,label={\textbf{\thesection-\arabic*}}]
+		% 2-1
+		\item \textbf{\textit{Insertion sort on small arrays in merge sort.}} Although merge sort runes in $\Theta(n \lg(n))$ worst-case time and insertion sort runs in $\Theta(n^2)$ worst-case times, the constant factors in insertion sort can make it faster in practice for small problem sizes on many machines. Thus, it would make sense to \textbf{\textit{coarsen}} the leaves of recursion by using insertion sort within merge sort when subproblems become sufficiently small. Consider a modification to merge sort in which $n / k$ sublists of length $k$ are sorted using insertion sort and then merged using the standard merging mechanism, where $k$ is a value to be determined.
+		\begin{enumerate}
+			% a.
+			\item Show that insertion sort can sort the $n / k$ sublists, each of length $k$, in $\Theta(nk)$ worst-case time.
+			\begin{answer}
+				
+			\end{answer}
+
+			% b.
+			\item Show how to merge the sublists in $\Theta(n \lg(n / k))$ worst-case time.
+			\begin{answer}
+				
+			\end{answer}
+			
+			% c.
+			\item Given hat the modified algorithm runs in $\Theta(nk + n\lg(n / k))$ worst-case times, what is the largest value of $k$ as a function of $n$ for which the modified algorithm has the same running time as standard merge sort, in terms of $\Theta$-notation?
+			\begin{answer}
+				
+			\end{answer}
+			
+			% d.
+			\item How should we choose $k$ in practice?
+			\begin{answer}
+				
+			\end{answer}
+			
+		\end{enumerate}
+
+		% 2-2
+		\item \textbf{\textit{Correctness of bubblesort.}} Bubblesort is a popular, but inefficient, sorting algorithm. It works by repeatedly swapping adjacent elements that are out of order.
+
+		\begin{algorithm}[H]
+			\SetKwProg{Fn}{def}{\string:}{end}
+			\SetKwFunction{FSort}{Bubblesort}
+			\SetKwFunction{FSwap}{Swap}
+
+			\Fn{\FSort{$A[1 \dots n]$}}{
+				\For{$i \leftarrow 1\ \KwTo\ n - 1$}{
+					\For{$j \leftarrow n\ \KwTo\ i + 1$}{
+						\If{$A[j] < A[j - 1]$}{
+							\FSwap{$A[j], A[j - 1]$}\;
+						}
+					}
+				}
+			}
+		\end{algorithm}
+		\begin{enumerate}
+			% a.
+			\item Let $A'$ denote the output of \textsc{Bubblesort($A$)}. To prove that \textsc{Bubblesort} is correct, we need to prove that it terminates and that
+			\begin{equation}
+				A'[1] \leq A'[2] \leq \dots \leq A'[n], \label{eq:ch02-bubble-inequality}
+			\end{equation}
+			where $n$ is the length of $A$. In order to show that \textsc{Bubblesort} actually sorts, what else do we need to prove?
+			\begin{answer}
+				
+			\end{answer}
+		\end{enumerate}
+
+		The next two parts will prove inequality \ref{eq:ch02-bubble-inequality}.
+
+		\begin{enumerate}[resume]
+			% b.
+			\item State precisely a loop invariant for the \textbf{for} loop in lines 2-7, and prove that this loop invariant holds. Your proof should use the structure of the loop invariant proof presented in this chapter. \label{exer:ch02-bubble-part-b}
+			\begin{answer}
+				
+			\end{answer}
+			
+			% c.
+			\item Using the termination condition of the loop invariant prove in part \ref{exer:ch02-bubble-part-b}, state a loop invariant for the \textbf{for} loop in lines 1-8 that will allows you to prove inequality \ref{eq:ch02-bubble-inequality}. Your proof should use the structure of the loop invariant proof presented in this chapter.
+			\begin{answer}
+				
+			\end{answer}
+			
+			% d.
+			\item What is the worst-case running time of bubblesort? How does it compare to the running time of insertion sort?
+			\begin{answer}
+				
+			\end{answer}
+			
+		\end{enumerate}
+		
+		% 2-3
+		\item \textbf{\textit{Correctness of Horner's rule.}} The following code fragment implements Horner's rule for evaluating a polynomial
+		\begin{align*}
+			P(x) &= \sum_{k = 0}^n a_kx^k\\
+				&= a_0 + x(a_1 + x(a_2 + \dots + x(a_{n - 1} + xa_n) \dots)),
+		\end{align*}
+		given the coefficients $a_0, a_1, \dots, a_n$ and a value for $x$:
+
+		\begin{algorithm}[H]
+			$y \leftarrow 0$\;
+			\For{$i \leftarrow n\ \KwTo\ 0$}{
+				$y \leftarrow a_i + x \cdot y$\;
+			}
+		\end{algorithm}
+		\begin{enumerate}
+			% a.
+			\item In terms of $\Theta$-notation, what is the running time of this code fragment for Horner's rule?
+			\begin{answer}
+				
+			\end{answer}
+
+			% b.
+			\item Write pseudocode to implement the naive polynomial-evaluation algorithm that computes each term of the polynomial from scratch. What is the running time of this algorithm? How does it compare to Horner's rule?
+			\begin{answer}
+				
+			\end{answer}
+			
+			% c.
+			\item Consider the following loop invariant:
+			\begin{addmargin}[2em]{2em}
+				At the start of each iteration of the \textbf{for} loop of lines 2-4,
+				\[
+					y = \sum_{k = 0}^{n - (i + 1)} a_{k + i + 1}x^k.
+				\]
+			\end{addmargin}
+			Interpret a summation with no terms as equaling 0. Following the structure of the loop invariant proof presented in this chapter, us the loop invariant to show that, at termination,
+			\[
+				y = \sum_{k = 0}^n a_kx^k.
+			\]
+			\begin{answer}
+				
+			\end{answer}
+			
+			% d.
+			\item Conclude by arguing that the given code fragment correctly evaluates a polynomial characterized by the coefficients $a_0, a_1, \dots, a_n$.
+			\begin{answer}
+				
+			\end{answer}
+			
+		\end{enumerate}
+		
+		% 2-4
+		\item \textbf{\textit{Inversions.}} Let $A[1 \dots n]$ be an array of $n$ distinct numbers. If $i < j$ and $A[i] > A[j]$, then the pair $(i,j)$ is called an \textbf{\textit{inversion}} of $A$.
+		\begin{enumerate}
+			% a.
+			\item List the five inversions of the array $\langle 2, 3, 8, 6, 1 \rangle$.
+			\begin{answer}
+				
+			\end{answer}
+
+			% b.
+			\item What array with elements from the set $\mathbb{n} = \{1, 2, \dots, n\}$ has the most inversions? How many does it have?
+			\begin{answer}
+				
+			\end{answer}
+			
+			% c.
+			\item What is the relationship between the running time of insertion sort and the number of inversion in the input array? Justify your answer.
+			\begin{answer}
+				
+			\end{answer}
+			
+			% d.
+			\item Give an algorithm that determines the number of inversion in any permutation on $n$ elements in $\Theta(n \lg(n))$ worst-case time. (\emph{Hint:} Modify merge sort.)
+			\begin{answer}
+				
+			\end{answer}
+			
+		\end{enumerate}
+		
+	\end{enumerate}
+
+\end{document}

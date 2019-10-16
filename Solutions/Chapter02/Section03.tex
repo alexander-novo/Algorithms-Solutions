@@ -311,15 +311,15 @@
 				\Fn{\FMerge{$A[p \dots q, q + 1, \dots \dots r]$}}{
 					$n_1 \leftarrow q - p + 1$\;
 					$n_2 \leftarrow r - q$\;
-					\For{$i = 1\ \KwTo\ n_1$}{
+					\For{$i \leftarrow 1\ \KwTo\ n_1$}{
 						$L[i] \leftarrow A[p + i - 1]$\;
 					}
-					\For{$j = 1\ \KwTo\ n_2$}{
+					\For{$j \leftarrow 1\ \KwTo\ n_2$}{
 						$R[j] \leftarrow A[q + j]$\;
 					}
 					$i \leftarrow 1$\;
 					$j \leftarrow 1$\;
-					\For{$k = 1\ \KwTo\ \min\{n_1, n_2\}$}{
+					\For{$k \leftarrow 1\ \KwTo\ \min\{n_1, n_2\}$}{
 						\eIf{$L[i] \leq R[j]$}{
 							$A[k] \leftarrow L[i]$\;
 							$i \leftarrow i + 1$\;

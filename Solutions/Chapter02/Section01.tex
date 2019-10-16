@@ -258,7 +258,7 @@
 				\SetKwFunction{FSort}{Insertion-Sort}
 
 				\Fn{\FSort{$A[1 \dots n]$}}{
-					\For{$j = n-1\ \KwTo\ 1$}{
+					\For{$j \leftarrow n-1\ \KwTo\ 1$}{
 						$key \leftarrow A[j]$\;
 						$i \leftarrow j + 1$\;
 						\While{$i \leq n$ {\bf and} $A[i] < key$}{
@@ -285,7 +285,7 @@
 				\SetKwFunction{FSearch}{Linear-Search}
 
 				\Fn{\FSearch{$A[1 \dots n],\ v$}}{
-					\For{$i = 1\ \KwTo\ n$}{
+					\For{$i \leftarrow 1\ \KwTo\ n$}{
 						\If{$A[i] = v$}{
 							\Return{i}
 						}
@@ -340,7 +340,7 @@
 				\Fn{\FBin{$A[1 \dots n], B[1 \dots n]$}}{
 					\tcp{We only carry from a previous addition, which does not exist at the beginning of the algorithm}
 					$carry \leftarrow 0$\;
-					\For{$i = 1\ \KwTo\ n$}{
+					\For{$i \leftarrow 1\ \KwTo\ n$}{
 						$C[i] \leftarrow A[i] + B[i] + carry$\;
 						\eIf{$C[i] > 1$}{
 							$C[i] \leftarrow C[i] - 2$\;

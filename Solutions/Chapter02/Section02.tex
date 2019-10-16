@@ -26,9 +26,9 @@
 				\SetKwFunction{FSwap}{Swap}
 
 				\Fn{\FSort{$A[1 \dots n]$}}{
-					\For(\tcp*[f]{$n$}){$i = 1\ \KwTo\ n - 1$}{
+					\For(\tcp*[f]{$n$}){$i \leftarrow 1\ \KwTo\ n - 1$}{
 						$min \leftarrow i$ \tcp*[r]{$n - 1$}
-						\For(\tcp*[f]{$\sum_{i = 1}^{n - 1} (n - i)$}){$j = i + 1\ \KwTo\ n$}{
+						\For(\tcp*[f]{$\sum_{i = 1}^{n - 1} (n - i)$}){$j \leftarrow i + 1\ \KwTo\ n$}{
 							\If(\tcp*[f]{$\sum_{i = 1}^{n - 1} (n - i - 1)$}){$A[j] < A[min]$}{
 								$min \leftarrow j$\;
 							}
