@@ -12,25 +12,25 @@
 			% a.
 			\item Show that insertion sort can sort the $n / k$ sublists, each of length $k$, in $\Theta(nk)$ worst-case time.
 			\begin{answer}
-				
+				Since each sublist is of size $k$, we know sorting each sublist will take $\Theta(k^2)$ worst-case time. Since there are $\frac{n}{k}$ such sublists, the total worst-case sorting time will be $\frac{n}{k} \Theta(k^2) = \Theta(nk)$.
 			\end{answer}
 
 			% b.
 			\item Show how to merge the sublists in $\Theta(n \lg(n / k))$ worst-case time.
 			\begin{answer}
-				
+				Following our original analysis of \textsc{Merge-Sort}, we know that the $\lg(n)$ factor comes from the height of the recursion tree. Starting from the bottom of the tree, we cut the number of un-merged arrays (represented by the number of nodes on each level, starting with the leaves) in half by merging them. In the worst-case scenario, the recursion tree is complete, so the number of leaves is a power of 2, and the number of times we can cut a number of nodes $n$ in half is $\lg(n)$. So if we start with $n / k$ un-merged arrays (leaves), the number of times we can cut the number of un-merged arrays in half is $\lg(n / k)$. Therefore, we can merge the sublists in $\Theta(n \lg(n / k))$ worst-case time.
 			\end{answer}
 			
 			% c.
-			\item Given hat the modified algorithm runs in $\Theta(nk + n\lg(n / k))$ worst-case times, what is the largest value of $k$ as a function of $n$ for which the modified algorithm has the same running time as standard merge sort, in terms of $\Theta$-notation?
+			\item Given that the modified algorithm runs in $\Theta(nk + n\lg(n / k))$ worst-case times, what is the largest value of $k$ as a function of $n$ for which the modified algorithm has the same running time as standard merge sort, in terms of $\Theta$-notation?
 			\begin{answer}
-				
+				If we choose $k = \Theta(\lg(n))$, then the run time is $\Theta(n\lg(n) + n \lg(n / \lg(n)) = \Theta(n\lg(n))$, since $n / \lg(n) < n$ for $n > 2$. If we choose $k$ any (asymptotically) larger, then our runtime would be worse.
 			\end{answer}
 			
 			% d.
 			\item How should we choose $k$ in practice?
 			\begin{answer}
-				
+				In practice, we shouldn't choose $k$ to be an asymptotic function of $n$, since we are arguing that that \textsc{Insertion-Sort} is better than \textsc{Merge-Sort} for \emph{small} values of $k$, based on the constants which are hidden by the asymptotic notation. In practice, we should pick a constant number for $k$ such that the constants of \textsc{Insertion-Sort} allow better run-time than the constants of \textsc{Merge-Sort}. This can be figured out with a more in-depth analysis of the two algorithms, without asymptotic notation, or through trial-and-error on an actual machine.
 			\end{answer}
 			
 		\end{enumerate}
@@ -61,7 +61,7 @@
 			\end{equation}
 			where $n$ is the length of $A$. In order to show that \textsc{Bubblesort} actually sorts, what else do we need to prove?
 			\begin{answer}
-				
+				We need to prove that $A'$ is a permutation of $A$.
 			\end{answer}
 		\end{enumerate}
 
@@ -69,15 +69,51 @@
 
 		\begin{enumerate}[resume]
 			% b.
-			\item State precisely a loop invariant for the \textbf{for} loop in lines 2-7, and prove that this loop invariant holds. Your proof should use the structure of the loop invariant proof presented in this chapter. \label{exer:ch02-bubble-part-b}
+			\item State precisely a loop invariant for the \textbf{for} loop in lines 3-7, and prove that this loop invariant holds. Your proof should use the structure of the loop invariant proof presented in this chapter. \label{exer:ch02-bubble-part-b}
 			\begin{answer}
-				
+				We use the following loop invariant:
+				\begin{addmargin}[2em]{2em}
+					At the start of each iteration of the \textbf{for} loop of lines 3-7, the element $A[j] \leq A[m]$ for all $j + 1 \leq m \leq n$.
+				\end{addmargin}
+
+				We then prove this loop invariant using the structure presented in this chapter:
+				\begin{description}
+					\item[Initialization:] This is trivially true, since $j + 1 = n + 1$, so there is no such $m$.
+
+					\item[Maintenance:] We have two cases:
+					\begin{description}
+						\item[Case 1:] $A[j - 1] > A[j]$. Then we swap elements, and we know now that $A[j - 1] < A[j]$. So $A[j - 1] < A[m]$ for $j \leq m \leq n$.
+						\item[Case 2:] $A[j - 1] \leq A[j]$. Then $A[j - 1] \leq A[j] \leq A[m]$ for all $j \leq m \leq n$.
+					\end{description}
+
+					\item[Termination:] Since the loop terminates when $j = i$, then $A[i] \leq A[m]$ for all $i + 1 \leq m \leq n$. In other words, $A[i]$ is the minimum element of the sub-array $A[i \dots n]$.
+				\end{description}
 			\end{answer}
 			
 			% c.
-			\item Using the termination condition of the loop invariant prove in part \ref{exer:ch02-bubble-part-b}, state a loop invariant for the \textbf{for} loop in lines 1-8 that will allows you to prove inequality \ref{eq:ch02-bubble-inequality}. Your proof should use the structure of the loop invariant proof presented in this chapter.
+			\item Using the termination condition of the loop invariant prove in part \ref{exer:ch02-bubble-part-b}, state a loop invariant for the \textbf{for} loop in lines 1-8 that will allows you to prove inequality \eqref{eq:ch02-bubble-inequality}. Your proof should use the structure of the loop invariant proof presented in this chapter.
 			\begin{answer}
-				
+				We use the following loop invariant:
+				\begin{addmargin}[2em]{2em}
+					At the start of each iteration of the \textbf{for} loop of lines 2-8,
+					\begin{equation}
+						A'[1] \leq A'[2] \leq \dots \leq A'[i] \leq A'[m], \label{eq:ch02-bubble-invariant-inequality}
+					\end{equation}
+					for all $i + 1 \leq m \leq n$.
+				\end{addmargin}
+
+				We then prove this loop invariant using the structure presented in this chapter:
+				\begin{description}
+					\item[Initialization:] This is trivially true, since $i = 0$, so inequality \eqref{eq:ch02-bubble-invariant-inequality} is empty.
+
+					\item[Maintenance:] From inequality \eqref{eq:ch02-bubble-invariant-inequality} above, we have for $m = i + 1$,
+					\[
+						A'[1] \leq A'[2] \leq \dots \leq A'[i] \leq A'[i + 1],
+					\]
+					and from the loop invariant in problem \ref{exer:ch02-bubble-part-b} above, we have $A'[i + 1] \leq A[m]$ for all $i + 2 \leq m \leq n$.
+
+					\item[Termination:] Since the loop terminates when $i = n$, inequality \eqref{eq:ch02-bubble-inequality} follows directly from inequality \eqref{eq:ch02-bubble-invariant-inequality}.
+				\end{description}
 			\end{answer}
 			
 			% d.
