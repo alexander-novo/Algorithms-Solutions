@@ -119,7 +119,7 @@
 			% d.
 			\item What is the worst-case running time of bubblesort? How does it compare to the running time of insertion sort?
 			\begin{answer}
-				
+				The worst-case running time of bubble sort occurs when we have to swap on each iteration of the \textbf{for} loop on lines 3-7.
 			\end{answer}
 			
 		\end{enumerate}
@@ -142,35 +142,77 @@
 			% a.
 			\item In terms of $\Theta$-notation, what is the running time of this code fragment for Horner's rule?
 			\begin{answer}
-				
+				The running time for this code fragment is $\Theta(n)$.
 			\end{answer}
 
 			% b.
 			\item Write pseudocode to implement the naive polynomial-evaluation algorithm that computes each term of the polynomial from scratch. What is the running time of this algorithm? How does it compare to Horner's rule?
 			\begin{answer}
-				
+				\hfill\\
+				\begin{algorithm}[H]
+					\SetKw{KwUpto}{upto}
+					$y \leftarrow 0$\;
+					\For{$i \leftarrow 0\ \KwTo\ n$}{
+						$t \leftarrow a_i$\;
+						\For{$j \leftarrow 1\ \KwUpto\ i$}{
+							$t \leftarrow t \cdot x$\;
+						}
+						$y \leftarrow y + t$\;
+					}
+				\end{algorithm}
+
+				The running time of this algorithm is
+				\begin{align*}
+					(n + 2) + (n + 1) + \qty(\sum_{i = 0}^n (i + 1)) + \qty(\sum_{i = 0}^n i) + (n + 1) &= 3n + 4 + 2\sum_{i = 0}^n i + \sum_{i = 0}^n 1\\
+						&= 3n + 4 + n(n + 1) + n\\
+						&= n^2 + 5n + 4\\
+						&= \Theta(n^2).
+				\end{align*}
 			\end{answer}
 			
 			% c.
-			\item Consider the following loop invariant:
+			\item Consider the following loop invariant: \label{exer:ch02-polynomial-loop-invariant}
 			\begin{addmargin}[2em]{2em}
 				At the start of each iteration of the \textbf{for} loop of lines 2-4,
 				\[
 					y = \sum_{k = 0}^{n - (i + 1)} a_{k + i + 1}x^k.
 				\]
 			\end{addmargin}
-			Interpret a summation with no terms as equaling 0. Following the structure of the loop invariant proof presented in this chapter, us the loop invariant to show that, at termination,
+			Interpret a summation with no terms as equaling 0. Following the structure of the loop invariant proof presented in this chapter, use the loop invariant to show that, at termination,
 			\[
 				y = \sum_{k = 0}^n a_kx^k.
 			\]
 			\begin{answer}
-				
+				We prove the loop invariant by following the structure presented in this chapter:
+				\begin{description}
+					\item[Initialization:] At the start of the loop, $y = 0$ and $i = n$, so we have
+					\begin{align*}
+						\sum_{k = 0}^{n - (n + 1)} a_{k + i + 1} x^k &= \sum_{k = 0}^{-1} a_{k + i + 1} x^k\\
+							&= 0\\
+							&= y.
+					\end{align*}
+
+					\item[Maintenance:] The next $y$ is now
+					\begin{align*}
+						a_i + xy &= a_i + x\qty(\sum_{k = 0}^{n - (i + 1)} a_{k + i + 1}x^k)\\
+							&= a_i + \sum_{k = 0}^{n - (i + 1)} a_{k + i + 1}x^{k + 1}\\
+							&= a_i + \sum_{k = 1}^{n - i} a_{k + i}x^k\\\\
+							&= \sum_{k = 0}^{n - i} a_{k + i}x^k.
+					\end{align*}
+
+					\item[Termination:] The loop terminates when $i = -1$, so we have
+					\begin{align*}
+						y &= \sum_{k = 0}^{n - (-1 + 1)} a_{k + -1 + 1}x^k\\
+							&= \sum_{k = 0}^{n} a_kx^k,
+					\end{align*}
+					which is the correct value of $P(x)$.
+				\end{description}
 			\end{answer}
 			
 			% d.
 			\item Conclude by arguing that the given code fragment correctly evaluates a polynomial characterized by the coefficients $a_0, a_1, \dots, a_n$.
 			\begin{answer}
-				
+				See the termination step of \ref{exer:ch02-polynomial-loop-invariant} above.
 			\end{answer}
 			
 		\end{enumerate}
@@ -181,25 +223,100 @@
 			% a.
 			\item List the five inversions of the array $\langle 2, 3, 8, 6, 1 \rangle$.
 			\begin{answer}
-				
+				The five inversion are $(1,5), (2,5), (3,5), (4,5), (3,4)$.
 			\end{answer}
 
 			% b.
 			\item What array with elements from the set $\mathbb{n} = \{1, 2, \dots, n\}$ has the most inversions? How many does it have?
 			\begin{answer}
-				
+				The array $A = \langle n, (n - 1), \dots, 2, 1 \rangle$ has the most inversions, since $A[i] > A[j]$ whenever $i < j$. In other words, every element is in an inversion pair with every succeeding element, so the number of inversions is
+				\begin{align*}
+					\sum_{i = 1}^n (n - i) &= \sum_{i = 1}^n n - \sum_{i = 1}^n i\\
+						&= n^2 - \frac{1}{2}n(n + 1)\\
+						&= \frac{1}{2}n^2 - \frac{1}{2}n\\
+						&= \frac{1}{2}n(n - 1).
+				\end{align*}
 			\end{answer}
 			
 			% c.
-			\item What is the relationship between the running time of insertion sort and the number of inversion in the input array? Justify your answer.
+			\item What is the relationship between the running time of insertion sort and the number of inversions in the input array? Justify your answer.
 			\begin{answer}
-				
+				The number of inversions in the input array is the number of times the \textbf{while} loop on lines 5-7 repeats, so the running time of insertion sort is $\Theta(n + k)$, where $n$ is the size of the input array and $k$ is the number of inversions. This is due to the loop invariant discussed in the chapter:
+				\begin{addmargin}[2em]{2em}
+					At the start of each iteration of the \texbf{for} loop of lines 1-8, the subarray $A[1 \dots j-1]$ consists of the elements originally in $A[1 \dots j-1]$, but in sorted order.
+				\end{addmargin}
+
+				This loop invariant implies another loop invariant:
+				\begin{addmargin}[2em]{2em}
+					At the start of each iteration of the \texbf{for} loop of lines 1-8, the subarray $A[1 \dots j]$ consists of the same number of inversions $(i,j)$ for $1 \leq i < j$ as the original array $A$. As well, if $(a,j)$ is an inversion, then $(b,j)$ is an inversion for all $1 \leq a < b < j$. Finally, the number of shifts required to insert $A[j]$ into $A[1 \dots j]$ is equal to the number of inversions $(i,j)$ in the original array $A$.
+				\end{addmargin}
+
+				We can skip the initialization and maintenance step of proving this loop invariant if we show that this loop invariant is a consequence of the previous loop invariant, which we do now.
+				\begin{proof}
+					Whenever we insert an element $A[j]$ into $A[1 \dots j]$, the new index $m \leq j$. Therefore, if $(i,j)$ is an inversion in the original array $A$, then $A[i] < A[j]$ in the original array and now $A[m] < A[j]$ in the new subarray, so $(i,m)$ is an inversion in $A[1 \dots j]$. Since $A[1 \dots j - 1]$ consists of the elements originally in $A[1 \dots j-1]$, then there cannot be any ``new'' inversions. Therefore, the number of inversions $(i, j)$ in $A[1 \dots j]$ is equal to the number in the original array $A$. Since $A[1 \dots j-1]$ is sorted, then $1 \leq a < b < j$ implies that $A[a] \leq A[b]$, so if $(a,j)$ is an inversion, then $A[b] \geq A[a] \geq A[j]$, so $(b, j)$ is also an inversion. Finally, we wish to insert $A[j]$ into the minimum index $a$ such that $(a,j)$ is an inversion (or $j$ otherwise, in which case there are no shifts). Since all elements $A[b]$ where $a < b < j$ are shifted, and these are all of the inversions $(a,j)$, then then the number of shifts required to insert $A[j]$ into $A[1 \dots j]$ is equal to the number of such inversions.
+				\end{proof}
+
+				Then, we note the termination step of this new loop invariant:
+				\begin{description}
+					\item[Termination:] The total number of swaps that have been performed is the sum over the number of inversions $(i,j)$ for $2 \leq j \leq n$, which is the sum of all inversions.
+				\end{description}
 			\end{answer}
 			
 			% d.
-			\item Give an algorithm that determines the number of inversion in any permutation on $n$ elements in $\Theta(n \lg(n))$ worst-case time. (\emph{Hint:} Modify merge sort.)
+			\item Give an algorithm that determines the number of inversions in any permutation on $n$ elements in $\Theta(n \lg(n))$ worst-case time. (\emph{Hint:} Modify merge sort.)
 			\begin{answer}
-				
+				\hfill\\
+				\begin{algorithm}[H]
+					\SetKwProg{Fn}{def}{\string:}{end}
+					\SetKwFunction{FPerm}{Count-Inversions}
+					\SetKwFunction{FMerge}{Merge-Inversions}
+
+					\Fn{\FPerm{$A[a \dots b]$}}{
+						\If{$a < b$}{
+							$m \leftarrow \lfloor (a + b) / 2 \rfloor$\;
+							$c \leftarrow \FPerm{$A[a \dots m]$}$\;
+							$c \leftarrow \FPerm{$A[m + 1 \dots b]$} + c$\;
+							$c \leftarrow \FMerge{$A[a \dots m \dots b]$} + c$\;
+							\Return{$c$}\;
+						}
+						\Return{$0$}\;
+					}
+
+					\Fn{\FMerge{$A[a \dots m \dots b]$}}{
+						$n_1 \leftarrow m - a + 1$\;
+						$n_2 \leftarrow b - m$\;
+						\For{$i \leftarrow 1\ \KwTo\ n_1$}{
+							$L[i] \leftarrow A[a + i - 1]$\;
+						}
+						\For{$j \leftarrow 1\ \KwTo\ n_2$}{
+							$R[j] \leftarrow A[m + j]$\;
+						}
+						$i \leftarrow 1$\;
+						$j \leftarrow 1$\;
+						$c \leftarrow 0$\;
+						\For{$k \leftarrow 1\ \KwTo\ \min\{n_1, n_2\}$}{
+							\eIf{$L[i] \leq R[j]$}{
+								$A[k] \leftarrow L[i]$\;
+								$i \leftarrow i + 1$\;
+							}{
+								$A[k] \leftarrow R[j]$\;
+								$j \leftarrow j + 1$\;
+								\tcc{Whenever we insert an element from the right half of the sub-array before finishing the left half, we resolved an inversion.}
+								$c \leftarrow c + 1$ 
+							}
+						}
+						\For{$i\ \KwTo\ n_1$}{
+							$A[k] \leftarrow L[i]$\;
+							$k \leftarrow k + 1$\;
+						}
+						\For{$j\ \KwTo\ n_2$}{
+							$A[k] \leftarrow R[j]$\;
+							$k \leftarrow k + 1$\;
+						}
+
+						\Return{$c$}\;
+					}
+				\end{algorithm}
 			\end{answer}
 			
 		\end{enumerate}
