@@ -308,6 +308,7 @@
 				\label{alg:ch02-Merge}
 				\SetKwProg{Fn}{def}{\string:}{end}
 				\SetKwFunction{FMerge}{Merge}
+				\SetKw{KwAnd}{and}
 
 				\Fn{\FMerge{$A[p \dots q \dots r]$}}{
 					$n_1 \leftarrow q - p + 1$\;
@@ -320,7 +321,8 @@
 					}
 					$i \leftarrow 1$\;
 					$j \leftarrow 1$\;
-					\For{$k \leftarrow 1\ \KwTo\ \min\{n_1, n_2\}$}{
+					$k \leftarrow 1$\;
+					\While{$i \leq n_1\ \KwAnd\ j \leq n_2$}{
 						\eIf{$L[i] \leq R[j]$}{
 							$A[k] \leftarrow L[i]$\;
 							$i \leftarrow i + 1$\;
@@ -328,6 +330,7 @@
 							$A[k] \leftarrow R[j]$\;
 							$j \leftarrow j + 1$\;
 						}
+						$k \leftarrow k + 1$\;
 					}
 					\For{$i\ \KwTo\ n_1$}{
 						$A[k] \leftarrow L[i]$\;
@@ -376,7 +379,7 @@
 		\end{answer}
 
 		%2.3-5
-		\item \label{exer:ch02-binary-search} Referring back to the searching problem (see Exercise \ref{exer:ch02-linear-search}), observe that if the sequence $A$ is sorted, we can check the midpoint of the sequence against $v$ and eliminate half of the sequence from further consideration. The \textbf{\textit{binary search}} algorithm repeats this procedure, halving the size of the remaining portion of the sequence each time. Write pseudocode, either iterative or recursive, for \textsc{Binary-Search}. Argue that the worst-case running time of binary search is $\Theta(\lg(n))$.
+		\item \label{exer:ch02-binary-search} Referring back to the searching problem (see \cref{exer:ch02-linear-search}), observe that if the sequence $A$ is sorted, we can check the midpoint of the sequence against $v$ and eliminate half of the sequence from further consideration. The \textbf{\textit{binary search}} algorithm repeats this procedure, halving the size of the remaining portion of the sequence each time. Write pseudocode, either iterative or recursive, for \textsc{Binary-Search}. Argue that the worst-case running time of binary search is $\Theta(\lg(n))$.
 		\begin{answer}
 			See \autoref{alg:ch02-binary-search}.
 
@@ -421,7 +424,7 @@
 		\end{answer}
 
 		%2.3-6
-		\item Observe that the \textbf{while} loop of lines 5-7 of the \textsc{Insertion-Sort} procedure in Section 2.1 uses a linear search to scan (backward) through the sorted sub-array $A[1 \dots j - 1]$. Can we use binary search (see Exercise \ref{exer:ch02-binary-search}) instead to improve the overall worst-case running time of insertion sort to $\Theta(n \lg(n))$?
+		\item Observe that the \textbf{while} loop of lines 5-7 of the \textsc{Insertion-Sort} procedure in Section 2.1 uses a linear search to scan (backward) through the sorted sub-array $A[1 \dots j - 1]$. Can we use binary search (see \cref{exer:ch02-binary-search}) instead to improve the overall worst-case running time of insertion sort to $\Theta(n \lg(n))$?
 		\begin{answer}
 			No - while the amount of time it takes to find the correct element (in the worst-case) is $i$ and we can improve this to $\lg(i)$, it still takes $i$ swaps to get the element into the correct position.
 		\end{answer}

@@ -256,12 +256,13 @@
 			\begin{algorithm}[H]
 				\SetKwProg{Fn}{def}{\string:}{end}
 				\SetKwFunction{FSort}{Insertion-Sort}
+				\SetKw{KwAnd}{and}
 
 				\Fn{\FSort{$A[1 \dots n]$}}{
 					\For{$j \leftarrow n-1\ \KwTo\ 1$}{
 						$key \leftarrow A[j]$\;
 						$i \leftarrow j + 1$\;
-						\While{$i \leq n$ {\bf and} $A[i] < key$}{
+						\While{$i \leq n\ \KwAnd\ A[i] < key$}{
 							$A[i - 1] \leftarrow A[i]$\;
 							$i \leftarrow i + 1$\;
 						}

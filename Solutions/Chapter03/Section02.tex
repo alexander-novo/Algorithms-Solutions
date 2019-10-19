@@ -1,0 +1,82 @@
+%!TEX root = ../../Algorithms.tex
+\documentclass[Chapter03]{subfiles}
+
+\begin{document}
+	\subsection{Standard notations and common functions}
+
+	\begin{enumerate}[leftmargin=\labelsep]
+		% 3.2-1
+		\item Show that if $f(n)$ and $g(n)$ are monotonically increasing functions, then so are the functions $f(n) + g(n)$ and $f(g(n))$, and if $f(n)$ and $g(n)$ are in addition nonnegative, then $f(n)g(n)$ is monotonically increasing.
+		\begin{answer}
+			Let $f,g$ be monotonically increasing functions and $a < b$ be integers. Then $f(a) \leq f(b)$ and $g(a) \leq g(b)$. Then $f(a) + g(a) \leq f(b) + g(b)$ by adding the previous two inequalities together, so $f(n) + g(n)$ is monotonically increasing. As well, since $g(a) \leq g(b)$ and $f$ is monotonically increasing, then $f(g(a)) \leq f(g(b))$, so $f(g(n))$ is monotonically increasing. Finally, if $g(a) \geq 0$,  then $f(a)g(a) \leq f(b)g(a) \leq f(b)g(b)$, so $f(n)g(n)$ is monotonically increasing.
+		\end{answer}
+
+		% 3.2-2
+		\item Prove \cref{eq:ch03-book-16}.
+		\begin{equation}
+			a^{\log_b(c)} = c^{\log_b(a)} \label{eq:ch03-book-16} \tag{3.16}
+		\end{equation}
+		\begin{answer}
+			We have
+			\begin{align*}
+				a^{\log_b(c)} &= a^{\frac{\log_a(c)}{\log_a(b)}}\\
+					&= \qty(a^{\log_a(c)})^{\frac{1}{\log_a(b)}}\\
+					&= \cancelto{c}{\qty(a^{\log_a(c)})}^{\frac{1}{\log_a(b)}}\\
+					&= c^{\frac{\log_b(a)}{\log_b(b)}}\\
+					&= c^{\frac{\log_b(a)}{\cancel{\log_b(b)}}}\\
+					&= c^{\log_b(a)}.
+			\end{align*}
+		\end{answer}
+
+		% 3.2-3
+		\item Prove \cref{eq:ch03-book-19}. Also prove that $n! = \omega(2^n)$ and $n! = o(n^n)$.
+		\begin{equation}
+			\lg(n!) = \Theta(n \lg(n)) \label{eq:ch03-book-19} \tag{3.19}
+		\end{equation}
+		\begin{answer}
+			By properties of logarithms, we have
+			\begin{align*}
+				\lg(n!) &= \lg \qty(\prod_{i = 1}^n i)\\
+					&= \sum_{i = 1}^n \lg(i)\\
+					&= \Theta(n \lg(n)),
+			\end{align*}
+			which follows from \cref{exer:appA-log-sum-bound}.
+		\end{answer}
+
+		% 3.2-4
+		\item $\bigstar$ Is the function $\lceil \lg(n) \rceil !$ polynomially bounded? Is the function $\lceil \lg(\lg(n)) \rceil !$ polynomially bounded?
+		\begin{answer}
+			
+		\end{answer}
+
+		% 3.2-5
+		\item $\bigstar$ Which is asymptotically larger: $\lg(\lg^*(n))$ or $\lg^*(\lg(n))$?
+		\begin{answer}
+			
+		\end{answer}
+
+		% 3.2-6
+		\item Show that the golden ratio $\varphi$ and its conjugate $\hat\varphi$ both satisfy the equation $x^2 = x + 1$.
+		\begin{answer}
+			
+		\end{answer}
+
+		% 3.2-7
+		\item Prove by induction that the $i$-th Fibonacci number satisfies the equality
+		\[
+			F_i = \frac{1}{\sqrt{5}}(\varphi^i - \hat\varphi^i),
+		\]
+		where $\varphi$ is the golden ratio and $\hat\varphi$ is its conjugate.
+		\begin{answer}
+			
+		\end{answer}
+
+		% 3.2-8
+		\item Show that $k\ln(k) = \Theta(n)$ implies $k = \Theta(n / \ln(n))$.
+		\begin{answer}
+			
+		\end{answer}
+
+	\end{enumerate}
+
+\end{document}
