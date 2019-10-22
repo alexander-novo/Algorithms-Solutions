@@ -5,10 +5,10 @@
 	\subsection*{Problems}
 	\addcontentsline{toc}{subsection}{Problems}
 
-	\begin{enumerate}[leftmargin=\labelsep,label={\textbf{\thesection-\arabic*}}]
+	\begin{problems}
 		% 2-1
 		\item \textbf{\textit{Insertion sort on small arrays in merge sort.}} Although merge sort runes in $\Theta(n \lg(n))$ worst-case time and insertion sort runs in $\Theta(n^2)$ worst-case times, the constant factors in insertion sort can make it faster in practice for small problem sizes on many machines. Thus, it would make sense to \textbf{\textit{coarsen}} the leaves of recursion by using insertion sort within merge sort when subproblems become sufficiently small. Consider a modification to merge sort in which $n / k$ sublists of length $k$ are sorted using insertion sort and then merged using the standard merging mechanism, where $k$ is a value to be determined.
-		\begin{enumerate}
+		\begin{problems}
 			% a.
 			\item Show that insertion sort can sort the $n / k$ sublists, each of length $k$, in $\Theta(nk)$ worst-case time.
 			\begin{answer}
@@ -33,7 +33,7 @@
 				In practice, we shouldn't choose $k$ to be an asymptotic function of $n$, since we are arguing that that \textsc{Insertion-Sort} is better than \textsc{Merge-Sort} for \emph{small} values of $k$, based on the constants which are hidden by the asymptotic notation. In practice, we should pick a constant number for $k$ such that the constants of \textsc{Insertion-Sort} allow better run-time than the constants of \textsc{Merge-Sort}. This can be figured out with a more in-depth analysis of the two algorithms, without asymptotic notation, or through trial-and-error on an actual machine.
 			\end{answer}
 			
-		\end{enumerate}
+		\end{problems}
 
 		% 2-2
 		\item \textbf{\textit{Correctness of bubblesort.}} Bubblesort is a popular, but inefficient, sorting algorithm. It works by repeatedly swapping adjacent elements that are out of order.
@@ -53,7 +53,7 @@
 				}
 			}
 		\end{algorithm}
-		\begin{enumerate}
+		\begin{problems}
 			% a.
 			\item Let $A'$ denote the output of \textsc{Bubblesort($A$)}. To prove that \textsc{Bubblesort} is correct, we need to prove that it terminates and that
 			\begin{equation}
@@ -63,11 +63,11 @@
 			\begin{answer}
 				We need to prove that $A'$ is a permutation of $A$.
 			\end{answer}
-		\end{enumerate}
+		\end{problems}
 
 		The next two parts will prove \cref{eq:ch02-bubble-inequality}.
 
-		\begin{enumerate}[resume]
+		\begin{problems}[resume]
 			% b.
 			\item State precisely a loop invariant for the \textbf{for} loop in lines 3-7, and prove that this loop invariant holds. Your proof should use the structure of the loop invariant proof presented in this chapter. \label{exer:ch02-bubble-part-b}
 			\begin{answer}
@@ -91,7 +91,7 @@
 			\end{answer}
 			
 			% c.
-			\item Using the termination condition of the loop invariant prove in part \cref{exer:ch02-bubble-part-b}, state a loop invariant for the \textbf{for} loop in lines 1-8 that will allows you to prove \cref{eq:ch02-bubble-inequality}. Your proof should use the structure of the loop invariant proof presented in this chapter.
+			\item Using the termination condition of the loop invariant proved in \cref{exer:ch02-bubble-part-b}, state a loop invariant for the \textbf{for} loop in lines 1-8 that will allows you to prove \cref{eq:ch02-bubble-inequality}. Your proof should use the structure of the loop invariant proof presented in this chapter.
 			\begin{answer}
 				We use the following loop invariant:
 				\begin{addmargin}[2em]{2em}
@@ -122,7 +122,7 @@
 				The worst-case running time of bubble sort occurs when we have to swap on each iteration of the \textbf{for} loop on lines 3-7.
 			\end{answer}
 			
-		\end{enumerate}
+		\end{problems}
 		
 		% 2-3
 		\item \textbf{\textit{Correctness of Horner's rule.}} The following code fragment implements Horner's rule for evaluating a polynomial
@@ -138,7 +138,7 @@
 				$y \leftarrow a_i + x \cdot y$\;
 			}
 		\end{algorithm}
-		\begin{enumerate}
+		\begin{problems}
 			% a.
 			\item In terms of $\Theta$-notation, what is the running time of this code fragment for Horner's rule?
 			\begin{answer}
@@ -215,11 +215,11 @@
 				See the termination step of \ref{exer:ch02-polynomial-loop-invariant} above.
 			\end{answer}
 			
-		\end{enumerate}
+		\end{problems}
 		
 		% 2-4
 		\item \textbf{\textit{Inversions.}} Let $A[1 \dots n]$ be an array of $n$ distinct numbers. If $i < j$ and $A[i] > A[j]$, then the pair $(i,j)$ is called an \textbf{\textit{inversion}} of $A$.
-		\begin{enumerate}
+		\begin{problems}
 			% a.
 			\item List the five inversions of the array $\langle 2, 3, 8, 6, 1 \rangle$.
 			\begin{answer}
@@ -265,12 +265,15 @@
 			% d.
 			\item Give an algorithm that determines the number of inversions in any permutation on $n$ elements in $\Theta(n \lg(n))$ worst-case time. (\emph{Hint:} Modify merge sort.)
 			\begin{answer}
-				\hfill\\
+				See \cref{alg:ch02-inversion-counter}.
+
 				\begin{algorithm}[H]
 					\SetKwProg{Fn}{def}{\string:}{end}
 					\SetKwFunction{FPerm}{Count-Inversions}
 					\SetKwFunction{FMerge}{Merge-Inversions}
 					\SetKw{KwAnd}{and}
+					\caption{\textsc{Count-Inversions}, which runs in $\Theta(n \lg(n))$ worst-case time. Uses modified version of \textsc{Merge} from \cref{alg:ch02-Merge}.}
+					\label{alg:ch02-inversion-counter}
 
 					\Fn{\FPerm{$A[a \dots b]$}}{
 						\If{$a < b$}{
@@ -322,8 +325,8 @@
 				\end{algorithm}
 			\end{answer}
 			
-		\end{enumerate}
+		\end{problems}
 		
-	\end{enumerate}
+	\end{problems}
 
 \end{document}

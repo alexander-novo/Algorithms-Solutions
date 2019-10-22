@@ -2,17 +2,17 @@
 \documentclass{report}
 
 \usepackage[letterpaper,margin=.9in]{geometry}
-\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs,physics}
 %% remove ligatures (e.g. ``ff") to allow text copying from PDF
 \usepackage{microtype}
 \DisableLigatures{encoding = *, family = * }
-\usepackage{fancyhdr}
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[USenglish]{babel}
+\usepackage{fancyhdr}
 \usepackage{hyperref}
 \usepackage{enumitem,array,multicol}
-\usepackage{physics}
 \usepackage{tikz,pgfplots,forest}
 \usepackage{xcolor}
 \usepackage{cancel}
@@ -54,11 +54,16 @@
 % Remove chapter numbers
 \renewcommand{\thesection}{\arabic{section}}
 
-\setenumerate[1]{label=\textbf{\thesubsection-\arabic*}, ref={\thesubsection-\arabic*}}
-\setenumerate[2]{label=\textbf{\alph*.}, ref={\theenumi.\alph*}}
+\newlist{problems}{enumerate}{2}
 
-\crefname{theenumi}{Exercise}{Exercises}
-\crefname{theenumii}{Exercise Part}{Exercise Parts}
+\setenumerate[1]{label=\textbf{\thesubsection-\arabic*}, ref={\thesubsection-\arabic*},leftmargin=\labelsep}
+\setlist[problems,1]{label=\textbf{\thesection-\arabic*},ref={\thesection-\arabic*},leftmargin=\labelsep}
+\setlist[problems,2]{label=\textbf{\alph*.},ref={\thesection-\arabic{enumi}.\alph*}}
+
+\crefname{problemsi}{Problem}{Problems}
+\crefname{problemsii}{Problem}{Problems}
+\crefname{enumi}{Exercise}{Exercises}
+\crefname{enumii}{Exercise}{Exercises}
 \crefname{inequality}{ineq.}{ineqs.}
 
 \creflabelformat{equation}{#2(#1)#3}
