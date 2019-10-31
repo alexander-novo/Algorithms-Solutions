@@ -62,7 +62,33 @@
 		% 4.1-5
 		\item Use the following ideas to develop a nonrecursive, linear-time algorithm for the maximum-subarray problem. Start at the left end of the array, and progress toward the right, keeping track of the maximum subarray seen so far. Knowing a maximum subarray of $A[1 \dots j]$, extend the answer to find a maximum subarray ending at index $j + 1$ by using the following observation: a maximum subarray of $A[1 \dots j + 1]$ is either a maximum subarray of $A[1 \dots j]$ or a subarray $A[i \dots j + 1]$, for some $1 \leq i \leq j + 1$. Determine a maximum subarray of the form $A[i \dots j + 1]$ in constant time based on knowing a maximum subarray ending at index $j$.
 		\begin{answer}
-			
+			\hfill\\
+
+			\begin{algorithm}[H]
+				\caption{A nonrecursive, linear-time algorithm for the maximum-subarray problem.}
+				\label{alg:ch04-max-subarray-bruteforce}
+				\SetKwProg{Fn}{def}{\string:}{end}
+				\SetKwFunction{FMax}{Linear-Maximum-Subarray}
+				\SetKw{KwAnd}{and}
+
+				\Fn{\FMax{$A[1 \dots n]$}}{
+					$sum_{max} \leftarrow -\infty$\;
+					$sum_{end} \leftarrow -\infty$\;
+					\For{$j \leftarrow 1\ \KwTo\ n$}{
+						\eIf{$sum_{end} < 0$}{
+							$i \leftarrow j$\;
+							$sum_{end} \leftarrow A[j]$\;
+						}{
+							$sum_{end} \leftarrow sum_{end} + A[j]$\;
+						}
+						\If{$sum_{end} > sum_{max}$}{
+							$sum_{max} \leftarrow sum_{end}$\;
+							$i_{max} = i$\;
+							$j_{max} = j$\;
+						}
+					}
+				}
+			\end{algorithm}
 		\end{answer}
 
 	\end{enumerate}
