@@ -62,11 +62,11 @@
 		% 4.1-5
 		\item Use the following ideas to develop a nonrecursive, linear-time algorithm for the maximum-subarray problem. Start at the left end of the array, and progress toward the right, keeping track of the maximum subarray seen so far. Knowing a maximum subarray of $A[1 \dots j]$, extend the answer to find a maximum subarray ending at index $j + 1$ by using the following observation: a maximum subarray of $A[1 \dots j + 1]$ is either a maximum subarray of $A[1 \dots j]$ or a subarray $A[i \dots j + 1]$, for some $1 \leq i \leq j + 1$. Determine a maximum subarray of the form $A[i \dots j + 1]$ in constant time based on knowing a maximum subarray ending at index $j$.
 		\begin{answer}
-			\hfill\\
+			See \cref{alg:ch04-max-subarray-linear}. The algorithm uses the fact that a subarray ending at index $j + 1$ is either the singleton subarray at $j + 1$ or a subarray ending at $j$ concatenated with $j + 1$. Then the maximum subarray is either the singleton subarray or the maximum subarray ending at $j$ concatenated with $j + 1$. The singleton subarray is greater only when the maximum subarray ending at $j$ sums to a negative number.
 
 			\begin{algorithm}[H]
 				\caption{A nonrecursive, linear-time algorithm for the maximum-subarray problem.}
-				\label{alg:ch04-max-subarray-bruteforce}
+				\label{alg:ch04-max-subarray-linear}
 				\SetKwProg{Fn}{def}{\string:}{end}
 				\SetKwFunction{FMax}{Linear-Maximum-Subarray}
 				\SetKw{KwAnd}{and}

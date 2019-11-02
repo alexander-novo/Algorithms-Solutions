@@ -1,0 +1,198 @@
+%!TEX root = ../../Algorithms.tex
+\documentclass[Chapter04]{subfiles}
+
+\begin{document}
+	\subsection{Strassen's algorithm for matrix multiplication}
+
+	\begin{enumerate}
+		% 4.2-1
+		\item Use Strassen's algorithm to compute the matrix product
+		\[
+			\begin{pmatrix}
+				1 & 3\\
+				7 & 5
+			\end{pmatrix}
+			\begin{pmatrix}
+				6 & 8\\
+				4 & 2
+			\end{pmatrix}.
+		\]
+		Show your work.
+		\begin{answer}
+			We have
+			\begin{multicols}{2}
+				\noindent
+				\begin{align*}
+					S_1 &= 8 - 2 = 6,\\
+					S_2 &= 1 + 3 = 4,\\
+					S_3 &= 7 + 5 = 12,\\
+					S_4 &= 4 - 6 = -2,\\
+					S_5 &= 1 + 5 = 6,\\
+				\end{align*}
+				\begin{align*}
+					S_6 &= 6 + 2 = 8,\\
+					S_7 &= 3 - 5 = -2,\\
+					S_8 &= 4 + 2 = 6,\\
+					S_9 &= 1 - 7 = -6,\\
+					S_{10} &= 6 + 8 = 14.
+				\end{align*}
+			\end{multicols}
+			Then
+
+			\[
+				\begin{array}{r!{=}c!{=}l}
+					P_1 & 1 \cdot 6  & 6,\\
+					P_2 & 4 \cdot 2  & 7,\\
+					P_3 & 12 \cdot 6 & 72,\\
+					P_4 & 5 \cdot -2 & -10,\\
+					P_5 & 6 \cdot 8  & 48,\\
+					P_6 & -2 \cdot 6 & -12,\\
+					P_7 & -6 \cdot 14 & -84.
+				\end{array}
+			\]
+			Finally,
+			\[
+				C =
+				\begin{pmatrix}
+					48 + (-10) - 8 + (-12) & 6 + 8\\
+					72 + (-10) & 48 + 6 - 72 - (-84)
+				\end{pmatrix}
+				=
+				\begin{pmatrix}
+					18 & 14\\
+					62 & 66
+				\end{pmatrix}
+			\]
+		\end{answer}
+
+		% 4.2-2
+		\item Write pseudocode for Strassen's algorithm.
+		\begin{answer}
+			See \cref{alg:ch04-strassen}.
+
+			\begin{algorithm}[H]
+				\caption{Strassen's algorithm.}
+				\label{alg:ch04-strassen}
+				\SetKwProg{Fn}{def}{\string:}{end}
+				\SetKwFunction{FMatrix}{Strassen-Multiply}
+				\SetKwFunction{FSize}{Size}
+				\SetKw{KwAnd}{and}
+
+				\Fn{\FMatrix{$A,B$}}{
+					\eIf{$\FSize{$A$} = 1$}{
+						\Return{$a_{11} \cdot b_{11}$}\;
+					}{
+						$S_1 \leftarrow B_{12} - B_{22}$\;
+						$S_2 \leftarrow A_{11} + A_{12}$\;
+						$S_3 \leftarrow A_{21} + A_{22}$\;
+						$S_4 \leftarrow B_{21} - B_{11}$\;
+						$S_5 \leftarrow A_{11} + A_{22}$\;
+						$S_6 \leftarrow B_{11} + B_{22}$\;
+						$S_7 \leftarrow A_{12} - A_{22}$\;
+						$S_8 \leftarrow B_{21} + B_{22}$\;
+						$S_9 \leftarrow A_{11} - A_{21}$\;
+						$S_{10} \leftarrow B_{11} + B_{12}$\;
+						$P_1 \leftarrow \FMatrix{$A_{11},S_1$}$\;
+						$P_2 \leftarrow \FMatrix{$S_2,B_{22}$}$\;
+						$P_3 \leftarrow \FMatrix{$S_3,B_{11}$}$\;
+						$P_4 \leftarrow \FMatrix{$A_{22},S_4$}$\;
+						$P_5 \leftarrow \FMatrix{$S_5,S_6$}$\;
+						$P_6 \leftarrow \FMatrix{$S_7,S_8$}$\;
+						$P_7 \leftarrow \FMatrix{$S_9,S_{10}$}$\;
+						$C_{11} \leftarrow P_5 + P_4 - P_2 + P_6$\;
+						$C_{12} \leftarrow P_1 + P_2$\;
+						$C_{21} \leftarrow P_3 + P_4$\;
+						$C_{22} \leftarrow P_5 + P_1 - P_3 - P_7$\;
+					}
+				}
+			\end{algorithm}
+		\end{answer}
+
+		% 4.2-3
+		\item How would you modify Strassen's algorithm to multiply $n \times n$ matrices in which $n$ is not an exact power of 2? Show that the resulting algorithm runs in time $\Theta(n^{\lg(7)})$.
+		\begin{answer}
+			
+		\end{answer}
+
+		% 4.2-4
+		\item What is the largest $k$ such that if you multiply $3 \times 3$ matrices using $k$ multiplications (not assuming commutativity of multiplication), then you can multiply $n \times n$ matrices in time $o(n^{\lg(7)})$? What would the running time of this algorithm be?
+		\begin{answer}
+			
+		\end{answer}
+
+		% 4.2-5
+		\item V. Pan has discovered a way of multiplying $68 \times 68$ matrices using \num{132464} multiplications, a way of multiplying $70 \times 70$ matrices using \num{143640} multiplications, and a way of multiplying $72 \times 72$ matrices using \num{155424} multiplications. Which method yields the best asymptotic running time when used in a divide-and-conquer matrix-multiplication algorithm? How does it compare to Strassen's algorithm?
+		\begin{answer}
+			
+		\end{answer}
+
+		% 4.2-6
+		\item How quickly can you multiply a $kn \times n$ matrix by an $n \times kn$ matrix, using Strassen's algorithm as a subroutine? Answer the same question with the order of the input matrices reversed.
+		\begin{answer}
+			If $A$ is a $kn \times n$ matrix and $B$ is an $n \times kn$ matrix, then we can write
+			\begin{align*}
+				AB =
+				\begin{pmatrix}
+					A_1\\
+					A_2\\
+					\vdots\\
+					A_k
+				\end{pmatrix}
+				\begin{pmatrix}
+					B_1 & B_2 & \dots & B_k
+				\end{pmatrix}
+				=
+				\begin{pmatrix}
+					A_1B_1 & A_1B_2 & \dots & A_1B_k\\
+					A_2B_1 & A_2B_2 & \dots & A_2B_k\\
+					\vdots & \vdots & \ddots & \vdots\\
+					A_kB_1 & A_kB_2 & \dots & A_kB_k
+				\end{pmatrix},
+			\end{align*}
+			where each of $A_i,B_i$ are $n \times n$ submatrices for $i = 1 \dots k$. There are $k^2$ entries in $AB$, each with an $n \times n$ multiplication. Using Strassen's algorithm to multiply each of these entries would take \fbox{$\Theta(k^2n^{\lg(7)})$} time.
+
+			To contrast, if $A$ is a $n \times kn$ matrix and $B$ is an $kn \times n$ matrix, then we can write
+			\begin{align*}
+				AB =
+				\begin{pmatrix}
+					A_1 & A_2 & \dots & A_k
+				\end{pmatrix}
+				\begin{pmatrix}
+					B_1\\
+					B_2\\
+					\vdots\\
+					B_k
+				\end{pmatrix}
+				=
+				\begin{pmatrix}
+					A_1B_1 & A_2B_2 & \dots & A_kB_k
+				\end{pmatrix},
+			\end{align*}
+			where each of $A_i,B_i$ are $n \times n$ submatrices for $i = 1 \dots k$. There are $k$ entries in $AB$, each with an $n \times n$ multiplication. Using Strassen's algorithm to multiply each of these entries would take \fbox{$\Theta(kn^{\lg(7)})$} time.
+		\end{answer}
+
+		% 4.2-7
+		\item Show how to multiply the complex numbers $a + bi$ and $c + di$ using only three multiplications of real numbers. The algorithm should take $a, b, c,$ and $d$ as input and produce the real components $ac-bd$ and the imaginary component $ad+bc$ separately.
+		\begin{answer}
+			We let
+			\begin{align*}
+				P_1 &= a(d - c),\\
+				P_2 &= c(a + b),\\
+				P_3 &= b(d + c).
+			\end{align*}
+			Then
+			\begin{align*}
+				\Re((a + bi)(c + di)) &= P_2 - P_3\\
+					&= c(a + b) - b(d + c)\\
+					&= ca + cb - bd -bc\\
+					&= ac - bd,\\
+				\Im((a + bi)(c + di)) &= P_1 + P_2\\
+					&= a(d - c) + c(a + b)\\
+					&= ad - ac + ca + cb\\
+					&= ad + bc.
+			\end{align*}
+		\end{answer}
+
+	\end{enumerate}
+
+\end{document}
