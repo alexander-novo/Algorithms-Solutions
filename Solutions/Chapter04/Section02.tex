@@ -174,7 +174,24 @@
 		% 4.2-7
 		\item Show how to multiply the complex numbers $a + bi$ and $c + di$ using only three multiplications of real numbers. The algorithm should take $a, b, c,$ and $d$ as input and produce the real components $ac-bd$ and the imaginary component $ad+bc$ separately.
 		\begin{answer}
-			We let
+			Note that the matrix product
+			\[
+				\begin{pmatrix}
+					a & b\\
+					a & b
+				\end{pmatrix}
+				\begin{pmatrix}
+					c & d\\
+					-d & c
+				\end{pmatrix}
+				=
+				\begin{pmatrix}
+					ac-bd & ad + bc\\
+					ac-bd & ad + bc
+				\end{pmatrix}
+				.
+			\]
+			Using Strassen's algorithm, we can compute the two entries in the anti-diagonal using four multiplications. However, we can observe that $P_2 = P_3$, so we can avoid recalculating it. We let
 			\begin{align*}
 				P_1 &= a(d - c),\\
 				P_2 &= c(a + b),\\
