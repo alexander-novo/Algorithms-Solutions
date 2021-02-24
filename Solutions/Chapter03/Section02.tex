@@ -8,14 +8,14 @@
 		% 3.2-1
 		\item Show that if $f(n)$ and $g(n)$ are monotonically increasing functions, then so are the functions $f(n) + g(n)$ and $f(g(n))$, and if $f(n)$ and $g(n)$ are in addition nonnegative, then $f(n)g(n)$ is monotonically increasing.
 		\begin{answer}
-			Let $f,g$ be monotonically increasing functions and $a < b$ be integers. Then $f(a) \leq f(b)$ and $g(a) \leq g(b)$. Then $f(a) + g(a) \leq f(b) + g(b)$ by adding the previous two inequalities together, so $f(n) + g(n)$ is monotonically increasing. As well, since $g(a) \leq g(b)$ and $f$ is monotonically increasing, then $f(g(a)) \leq f(g(b))$, so $f(g(n))$ is monotonically increasing. Finally, if $g(a) \geq 0$,  then $f(a)g(a) \leq f(b)g(a) \leq f(b)g(b)$, so $f(n)g(n)$ is monotonically increasing.
+			Let $f,g$ be monotonically increasing functions and $a,b \in \ints$ such that $a < b$. Then $f(a) \leq f(b)$ and $g(a) \leq g(b)$. Then $f(a) + g(a) \leq f(b) + g(b)$ by adding the previous two inequalities together, so $f(n) + g(n)$ is monotonically increasing. As well, since $g(a) \leq g(b)$ and $f$ is monotonically increasing, then $f(g(a)) \leq f(g(b))$, so $f(g(n))$ is monotonically increasing. Finally, if $g(a),f(b) \geq 0$,  then $f(a)g(a) \leq f(b)g(a) \leq f(b)g(b)$, so $f(n)g(n)$ is monotonically increasing.
 		\end{answer}
 
 		% 3.2-2
 		\item Prove \cref{eq:ch03-book-16}.
-		\begin{equation}
+		\begin{align}
 			a^{\log_b(c)} = c^{\log_b(a)} \label{eq:ch03-book-16} \tag{3.16}
-		\end{equation}
+		\end{align}
 		\begin{answer}
 			We have
 			\begin{align*}
@@ -28,11 +28,11 @@
 			\end{align*}
 		\end{answer}
 
-		% 3.2-3
+		% 3.2-3 TODO
 		\item Prove \cref{eq:ch03-book-19}. Also prove that $n! = \omega(2^n)$ and $n! = o(n^n)$.
-		\begin{equation}
+		\begin{align}
 			\lg(n!) = \Theta(n \lg(n)) \label{eq:ch03-book-19} \tag{3.19}
-		\end{equation}
+		\end{align}
 		\begin{answer}
 			By properties of logarithms, we have
 			\begin{align*}
@@ -42,13 +42,38 @@
 			\end{align*}
 			which follows from \cref{exer:appA-log-sum-bound}.
 
-			We would like to show that $n! \geq n^{n/2}$. We can see this by looking at
+			% The following proof from https://math.stackexchange.com/q/640609
+			% It's a toughie - most people use this "Gauss's trick" - but leave the tail end of the proof to be observed
+			% This method instead leaves no room for error
+			We would like to show that $n! \geq n^{n/2}$ or alternatively $(n!)^2 \geq n^n$. We can show this with induction, using this fact:
+			\begin{align}
+				(1 + x)^n \geq 1 + xn,\quad x \geq 0 \label[inequality]{eq:ch03-bernoulli-inequality}
+			\end{align}
+
+			  (which we will also prove) and noting that $(1!)^2 = 1 \geq 1 = 1^1$, $(1 + x)^1 \geq 1 + 1x$, and $(1 + x)^2 = 1 + 2x + x^2 \geq 1 + 2x$. Then for some $n \geq 1$ assume that $(n!)^2 \geq n^n$ and $(1 + x)^n \geq 1 + xn$ for all $x \geq 0$. Then we have
 			\begin{align*}
-				(n!)^2 &= \qty(\prod_{i = 1}^n i) \qty(\prod_{i = 1}^n i)\\
-					&= \qty(\prod_{i = 1}^n i) \qty(\prod_{i = 1}^n (n + 1 - i))\\
-					&= \prod_{i = 1}^n i(n + 1 - i)\\
+				((n + 1)!)^2 &= (n!)^2 (n+1)^2\\
+					&\geq n^n (n + 1)^2\\
+					&= n n^{n - 1}(n + 1)^2\\
+					&= n \qty(\frac{n - 1}{n})^{n - 1} \qty(\frac{n}{n - 1})^{n - 1} n^{n - 1}(n + 1)^2\\
+					&= n \qty(1 - \frac{1}{n})^{n - 1} \frac{n^{2(n - 1)}(n + 1)^2}{(n - 1)^{n - 1}}\\
+					&\overset{\mathclap{\eqref{eq:ch03-bernoulli-inequality}}}{\geq} \cancel{n \qty(1 - \frac{n - 1}{n})} \frac{n^{2(n - 1)}(n + 1)^2}{(n - 1)^{n - 1}}\\
+				\shortintertext{(with $x = -\frac{1}{n}$)}
+					&= (1) \frac{n^{2(n - 1)}(n + 1)^2}{(n - 1)^{n - 1}}\\
+					&\geq \qty (1 - \frac{1}{n^2})^{n - 1} \frac{n^{2(n - 1)}(n + 1)^2}{(n - 1)^{n - 1}}\\
+				\shortintertext{(since $0 < \frac{1}{n^2} \leq 1$, then $0 \leq (1 - \frac{1}{n^2})^{n - 1} < 1$)}
+					&= \qty(\frac{n^2 - 1}{\cancel{n^2}})^{n - 1} \frac{\cancel{n^{2(n - 1)}}(n + 1)^2}{(n - 1)^{n - 1}}\\
+					&= (\cancel{(n-1)}(n+1))^{n - 1} \frac{(n + 1)^2}{\cancel{(n - 1)^{n - 1}}}\\
+					&= (n + 1)^{n + 1},
 			\end{align*}
-			Then we have
+			\begin{align*}
+				(1 + x)^{n + 2} &= (1 + x)^n(1 + x)^2\\
+					&\geq (1 + xn) (1 + 2x + x^2)\\
+					&= (1 + 2x + x^2) + xn + 2x^2n + x^3n\\
+					&= 1 + (n + 2)x + (2n + 1)x^2 + nx^3\\
+					&\geq 1 + (n + 2)x
+			\end{align*}
+			Then by induction $(n!)^2 \geq n^n$ and we have 
 			\begin{align*}
 				n! > c2^n \tag*{$\impliedby$}\\
 				n^{n/2} > c2^n \tag*{$\impliedby$}\\

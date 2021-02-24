@@ -29,7 +29,9 @@
 		% 2.1-1
 		\item Using Figure 2.2 as a model, illustrate the operation of \textsc{Insertion-Sort} on the array $A = \langle 31, 41, 59, 26, 41, 58 \rangle$.
 		\begin{figure}[H]
+			\RawFloats
 			\floatsetup{valign=t, heightadjust=object, style=plaintop}
+			\caption{Figure 2.2 from the book, included for reference.}
 			\begin{subfloatrow}[3]
 				\centering
 				\floatbox{figure}{\caption{}}{
@@ -140,9 +142,12 @@
 			\end{subfloatrow}
 		\end{figure}
 		\begin{answer}
-			\hfill\\
+			See \cref{fig:ch02-insertion-sort}.\\
 			\begin{figure}[H]
+				\RawFloats
 				\floatsetup{valign=t, heightadjust=object, style=plaintop}
+				\caption{Sorting $A$ using \textsc{Insertion-Sort}.}
+				\label{fig:ch02-insertion-sort}
 				\begin{subfloatrow}[3]
 					\centering
 					\floatbox{figure}{\caption{}}{
@@ -246,6 +251,7 @@
 						}
 					}
 				\end{subfloatrow}
+				
 			\end{figure}
 		\end{answer}
 
@@ -278,7 +284,7 @@
 			\item[Input:] A sequence of $n$ numbers $A = \langle a_1, a_2, \dots, a_n \rangle$ and a value $v$.
 			\item[Output:] An index $i$ such that $v = A[i]$ or the special value \texttt{NIL} if $v$ does not appear in $A$.
 		\end{description}
-		Write pseudocode for \textbf{\textit{linear-search}}, which scans through the sequence, looking for $v$. using a loop invariant, prove that your algorithm is correct. Make sure that your loop invariant fulfills the three necessary properties.
+		Write pseudocode for \textbf{\textit{linear-search}}, which scans through the sequence, looking for $v$. Using a loop invariant, prove that your algorithm is correct. Make sure that your loop invariant fulfills the three necessary properties.
 		\begin{answer}
 			\hfill\\
 			\begin{algorithm}[H]
@@ -320,7 +326,7 @@
 			\begin{description}
 				\item[Input:] Two $n$-element sequences $A = \langle a_1, a_2, \dots, a_n \rangle$ and $B = \langle b_1, b_2, \dots, b_n \rangle$ which represent binary numbers, $a_i,b_i \in \{0, 1\}$ for all $1 \leq i \leq n$.
 
-				\item[Output:] An $(n + 1)$-element sequence $C = \langle c_1, c_2, \dots, c_{n + 1} \rangle$ which represents the binary sum of the two binary numbers given above, i.e. $c_i \in \{0, 1\}$ for all $1 \leq i \leq n + 1$
+				\item[Output:] An $(n + 1)$-element sequence $C = \langle c_1, c_2, \dots, c_{n + 1} \rangle$ which represents the binary sum of the two binary numbers given above, i.e. $c_i \in \{0, 1\}$ for all $1 \leq i \leq n + 1$ and
 				\[
 					\sum_{i = 1}^{n + 1} c_i2^{i - 1} = \qty(\sum_{i = 1}^{n} a_i2^{i - 1}) + \qty(\sum_{i = 1}^{n} b_i2^{i - 1}).
 				\]
@@ -365,7 +371,7 @@
 			\end{addmargin}
 
 			\begin{description}
-				\item[Initialization:] This is trivially true, as $i - 1 = 0$, so we don't have to worry about any elements of $C$ yet. As well, the sum evaluates to $0 + (carry_1)2^0 = 0 + 0$, which is true, since $carry_1 = 0$.
+				\item[Initialization:] This is trivially true, as $i - 1 = 0$, so we don't have to worry about any elements of $C$ yet. As well, the sum evaluates to $0 + (carry_0)2^0 = 0 + 0$, which is true, since $carry_0 = 0$.
 
 				\item[Maintenance:] Observe that $carry \in \{0,1\}$ for the entire algorithm. Since $a_i, b_i, carry_{(i - 1)} \leq 1$, then $a_i + b_i + carry_{(i - 1)} \leq 3$. Then we have two cases:
 				\begin{description}

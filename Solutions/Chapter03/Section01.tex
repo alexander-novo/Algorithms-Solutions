@@ -8,7 +8,7 @@
 		% 3.1-1
 		\item Let $f(n)$ and $g(n)$ be asymptotically nonnegative functions. Using the basic definition of $\Theta$-notation, prove that $\max\{f(n), g(n)\} = \Theta(f(n) + g(n))$.
 		\begin{answer}
-			Let $n_0 = 1$ and $n \geq n_0$. Without loss of generality, assume $f(n) \leq g(n)$. Then we have
+			Let $n_0 = 1$ and $n \geq n_0$. Without loss of generality, assume $f(n) \geq g(n)$. Then we have
 			\begin{align*}
 				\max\{f(n), g(n)\} &= f(n)\\
 					&\leq f(n) + g(n),
@@ -69,7 +69,7 @@
 		\begin{answer}
 			\boxed{\implies} Assume that the running time of an algorithm is $\Theta(g(n))$. Then the worst-case running time and best-case running times are also $\Theta(g(n))$. The rest follows from Theorem 3.1.
 
-			\boxed{\impliedby} Let $f(n)$ represent the running time of an algorithm, $f_{best}(n)$ represent the running time of the algorithm in worst-case, and $f_{worst}(n)$ represent the running time of the algorithm in the best-case. It should be intuitive that $f_{best}(n) \leq f(n) \leq f_{worst}(n)$. Assume that $f_{worst}(n) = \bigO(g(n))$ and $f_{best}(n) = \Omega(g(n))$. Then there exist constants $n_1,n_2,c_1,c_2 > 0$ such that $0 \leq f_{worst} \leq c_1g(n)$ whenever $n \geq n_1$ and $0 \leq c_2g(n) \leq f_{best}(n)$ whenever $n \geq n_2$. Then we have
+			\boxed{\impliedby} Let $f(n)$ represent the running time of an algorithm, $f_{worst}(n)$ represent the running time of the algorithm in worst-case, and $f_{best}(n)$ represent the running time of the algorithm in the best-case. It should be intuitive that $f_{best}(n) \leq f(n) \leq f_{worst}(n)$. Assume that $f_{worst}(n) = \bigO(g(n))$ and $f_{best}(n) = \Omega(g(n))$. Then there exist constants $n_1,n_2,c_1,c_2 > 0$ such that $0 \leq f_{worst} \leq c_1g(n)$ whenever $n \geq n_1$ and $0 \leq c_2g(n) \leq f_{best}(n)$ whenever $n \geq n_2$. Then we have
 			\[
 				0 \leq c_2g(n) \leq f_{best}(n) \leq f(n) \leq f_{worst}(n) \leq c_1g(n)
 			\]

@@ -7,7 +7,7 @@
 
 	\begin{problems}
 		% 2-1
-		\item \textbf{\textit{Insertion sort on small arrays in merge sort.}} Although merge sort runes in $\Theta(n \lg(n))$ worst-case time and insertion sort runs in $\Theta(n^2)$ worst-case times, the constant factors in insertion sort can make it faster in practice for small problem sizes on many machines. Thus, it would make sense to \textbf{\textit{coarsen}} the leaves of recursion by using insertion sort within merge sort when subproblems become sufficiently small. Consider a modification to merge sort in which $n / k$ sublists of length $k$ are sorted using insertion sort and then merged using the standard merging mechanism, where $k$ is a value to be determined.
+		\item \textbf{\textit{Insertion sort on small arrays in merge sort.}} Although merge sort runs in $\Theta(n \lg(n))$ worst-case time and insertion sort runs in $\Theta(n^2)$ worst-case time, the constant factors in insertion sort can make it faster in practice for small problem sizes on many machines. Thus, it would make sense to \textbf{\textit{coarsen}} the leaves of recursion by using insertion sort within merge sort when subproblems become sufficiently small. Consider a modification to merge sort in which $n / k$ sublists of length $k$ are sorted using insertion sort and then merged using the standard merging mechanism, where $k$ is a value to be determined.
 		\begin{problems}
 			% a.
 			\item Show that insertion sort can sort the $n / k$ sublists, each of length $k$, in $\Theta(nk)$ worst-case time.
@@ -119,7 +119,15 @@
 			% d.
 			\item What is the worst-case running time of bubblesort? How does it compare to the running time of insertion sort?
 			\begin{answer}
-				The worst-case running time of bubble sort occurs when we have to swap on each iteration of the \textbf{for} loop on lines 3-7.
+				In this version of bubblesort, the worst-case running time occurs every time, since there is no early loop termination, and it is
+				\begin{align*}
+					\sum_{i = 1}^{n - 1} \sum_{j = i + 1}^{n} \Theta(1) &= \sum_{i = 1}^{n - 1} (n - (i + 1) + 1) \Theta(1)\\
+						&= n \sum_{i = 1}^{n - 1} \Theta(1) - \sum_{i = 1}^{n - 1} i\Theta(1)\\
+						&= n (n - 1) \Theta(1) - \frac{n(n-1)}{2}\Theta(1)\\
+						&= \Theta(n^2) - \Theta(n^2)\\
+						&= \boxed{\Theta(n^2)}.
+				\end{align*}
+				This is the same worst case running time of insertion sort, but insertion sort performs better in the best case.
 			\end{answer}
 			
 		\end{problems}

@@ -355,7 +355,7 @@
 		\]
 		is $T(n) = n\lg(n)$.
 		\begin{answer}
-			For $n = 2^1$, we have $T(2) = 2 = 2 \cdot 1 = 2 \lg(2)$, so the solution works for $k = 1$. Then, assume $T(2^k) = 2^k \lg(2^k)$ for some $k$. We have
+			For $n = 2^1$, we have $T(2) = 2 = 2 \cdot 1 = 2 \lg(2)$, so the solution works for $k = 1$. Then, assume $T(2^k) = 2^k \lg(2^k)$ for some $k \geq 1$. We have
 			\begin{align*}
 				T(2^{k + 1}) &= 2T(2^{k+1} / 2) + 2^{k + 1}\\
 					&=  2T(2^k) + 2^{k + 1}\\
@@ -457,7 +457,7 @@
 				}
 			\end{algorithm}
 
-			We wish to show the correctness of \textsc{Sums-To}. Obviously if \textsc{Sums-To} returns \textbf{true}, then there actually is such a pair, due to the preceding \textbf{if}-statement. To show that if \textsc{Sums-To} returns false that there are no such elements which sum to $x$, we maintain the following loop invariant:
+			We wish to show the correctness of \textsc{Sums-To}. Obviously if \textsc{Sums-To} returns \textbf{true}, then there actually is such a pair, due to the preceding \textbf{if}-statement. To show that if \textsc{Sums-To} returns \textbf{false} then there are no such elements which sum to $x$, we maintain the following loop invariant:
 
 			\begin{addmargin}[2em]{2em}
 				At the start of each iteration of the \textbf{while} loop of lines 5-13, none of the elements in the subarrays $A[1 \dots l - 1]$ and $A[r + 1 \dots n]$ can be used to sum up to $x$.

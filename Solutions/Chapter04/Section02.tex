@@ -38,7 +38,7 @@
 				\end{align*}
 			\end{multicols}
 			Then
-
+			% TODO - something is wrong here with 4x2 = 7
 			\[
 				\begin{array}{r!{=}c!{=}l}
 					P_1 & 1 \cdot 6  & 6,\\
@@ -163,12 +163,9 @@
 					\vdots\\
 					B_k
 				\end{pmatrix}
-				=
-				\begin{pmatrix}
-					A_1B_1 & A_2B_2 & \dots & A_kB_k
-				\end{pmatrix},
+				= A_1B_1 + A_2B_2 + \dots + A_kB_k,
 			\end{align*}
-			where each of $A_i,B_i$ are $n \times n$ submatrices for $i = 1 \dots k$. There are $k$ entries in $AB$, each with an $n \times n$ multiplication. Using Strassen's algorithm to multiply each of these entries would take \fbox{$\Theta(kn^{\lg(7)})$} time.
+			where each of $A_i,B_i$ are $n \times n$ submatrices for $i = 1 \dots k$. There are $k$ terms in $AB$, each with an $n \times n$ multiplication. Using Strassen's algorithm to multiply each of these terms and then sum would take $\Theta \qty(kn^{\lg(7)}) + \Theta \qty((k - 1)n^2) = \boxed{\Theta \qty(kn^{\lg(7)})}$ time.
 		\end{answer}
 
 		% 4.2-7
@@ -195,11 +192,12 @@
 			\begin{align*}
 				P_1 &= a(d - c),\\
 				P_2 &= c(a + b),\\
-				P_3 &= b(d + c).
+				P_3 &= c(a + b),\\
+				P_4 &= -b(d + c).
 			\end{align*}
 			Then
 			\begin{align*}
-				\Re((a + bi)(c + di)) &= P_2 - P_3\\
+				\Re((a + bi)(c + di)) &= P_3 + P_4 = P_2 + P_4\\
 					&= c(a + b) - b(d + c)\\
 					&= ca + cb - bd -bc\\
 					&= ac - bd,\\
